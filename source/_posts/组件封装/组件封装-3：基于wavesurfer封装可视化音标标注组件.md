@@ -1,10 +1,22 @@
 ---
-title: 四、基于wavesurfer，regions 封装的可视化音标标注控件
-tags: 自定义封装组件
-categories: 组件封装
-comments: true
-summary: 这个需求本来是要我做的，但是突发不幸，我的腿折了，后来就住院了，这个需求给新来的小伙伴做了。但是这个我很好奇，也不会做，就咨询了小伙伴，他给我讲了讲，这里记录一下的！！！
+title: 三、基于wavesurfer封装可视化音标标注组件
+date: 2024-10-02 08:56:28
+author: 吴俊杰
+top: false
+keywords:
+  - wavesurfer
+  - regions
+  - 音频剪辑
+summary: 这个比较难，需要实现一个模拟在线音频剪辑的组件，展示波形，同时记录截切的选区，最后把时间传给后端后端实现音频剪辑......
+categories: 
+  - 组件封装
+tags:
+  - wavesurfer
+  - regions
+  - 音频剪辑
 ---
+
+
 
 # 一、基于wavesurfer，regions封装的可视化音标标注控件
 

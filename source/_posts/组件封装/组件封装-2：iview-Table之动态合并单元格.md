@@ -1,9 +1,23 @@
 ---
 title: 二、iview-Table之动态合并单元格
-tags: 自定义封装组件
-categories: 组件封装
-comments: true
+date: 2024-10-02 08:34:01
+author: 吴俊杰
+top: false
+keywords:
+  - iview
+  - table
+  - 合并单元格
+  - 组件封装
+summary: iview越用越觉得不好用，很多内容不得不适用render函数去实现，这里记录一下使用iview table组件的时候实现单元格的合并......
+categories: 
+  - 组件封装
+tags:
+  - iview
+  - table
+  - 合并单元格
 ---
+
+
 # 一、iview-Table之动态合并单元格
 ## 1、普通合并单元格
 <p>&emsp;&emsp;我们先来看一下简单的合并单元格，也是iview官网给的示例，可以帮助我们理解。通过设置属性span-method可以指定合并行或列的算法，方法传入一个对象，对象里有四个属性,分别是:</p>

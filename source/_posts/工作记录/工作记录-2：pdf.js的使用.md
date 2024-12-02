@@ -1,8 +1,16 @@
 ---
-title: 十一、在线预览PDF
-tags: 工作知识总结
-categories: 热爱我的工作
-comments: true
+title: 二、pdf.js的使用
+date: 2024-10-01 10:26:54
+author: 吴俊杰
+top: false
+keywords:
+  - pdf.js
+summary: 刚入职还是个小白，要做个需求，在线预览pdf，组内的小伙伴推荐了这个第三方库，然后就去看了一下，发现好用又简单......
+categories: 
+  - 工作记录
+tags:
+  - 第三方库
+  - pdf.js
 ---
 
 # 一、PDF.js的使用

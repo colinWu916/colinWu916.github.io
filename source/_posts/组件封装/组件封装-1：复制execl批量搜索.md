@@ -1,9 +1,20 @@
 ---
-title: 一、Execl批量导入弹窗
-tags: 自定义封装组件
-categories: 组件封装
-comments: true
+title: 一、复制execl批量搜索
+date: 2024-10-01 10:53:11
+author: 吴俊杰
+top: false
+keywords:
+  - execl
+  - 组件封装
+summary: 工作没多久的时候遇到个需求，需要封装一个搜索框支持execl批量赋值标识实现批量的搜索，记录一下这个封装好的组件......
+categories: 
+  - 组件封装
+tags:
+  - 组件封装
+  - execl批量搜索
 ---
+
+
 
 # 一、Execl批量导入弹窗
 ## 1、自定义封装的弹窗组件
