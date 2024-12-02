@@ -27,15 +27,15 @@ tags:
 ### 2.1、先简单看下效果
 <p>1、将一段声频以波形展示在页面上，支持播放/暂停、重放、停止、点击跳转播放</p>
 
-![](/images/wavesurfer_1.gif)
+![](/images/cp/3_1.gif)
 
 <p>2、支持渲染区域，支持用户手动选择区域和删除区域，支持拖动区域和调整区域大小；当操作区域时，最好能实时循环播放区域</p>
 
-![](/images/wavesurfer_2.gif)
+![](/images/cp/3_2.gif)
 
 <p>3、点击区域时循环播放本区域，点击区域外时正常播放至结束</p>
 
-![](/images/wavesurfer_3.gif)
+![](/images/cp/3_3.gif)
 
 ### 2.2、Vue实现
 
@@ -203,7 +203,7 @@ export default {
 
 ### 2.4、补充功能：当拖动区域或调整区域大小时，重叠部分自动吸附
 #### 2.4.1、先看效果
-![](/images/wavesurfer_4.gif)
+![](/images/cp/3_4.gif)
 
 #### 2.4.2、代码实现
 <p>&emsp;&emsp;还是在region-update-end事件中处理！</p>

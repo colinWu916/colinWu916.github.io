@@ -25,17 +25,17 @@ tags:
 
 [pdf.js官网](http://mozilla.github.io/pdf.js)
 
-![](/images/pdfjs.jpg)
+![](/images/wr/2_1.jpg)
 
 ### 2.2、在项目中添加pdf.js
 
 <p>&emsp;&emsp;下载后的文件结构是这样的，三个子文件，build、web、license。这个license是可以直接删除的，没啥用。</p>
 
-![](/images/jiegou.png)
+![](/images/wr/2_2.png)
 
 <p>&emsp;&emsp;那么我们呢直接把整个文件夹放进我们项目中的public文件夹下面就好啦！这样就可以用啦</p>
 
-![](/images/mulu.jpg)
+![](/images/wr/2_3.jpg)
 
 ### 2.3、在项目中使用pdf.js
 

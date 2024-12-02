@@ -235,4 +235,4 @@ export default class TestCase extends Vue {
 ## 2、父组件调用改封装组件
 <p>&emsp;&emsp;这里展示一下效果：</p>
 
-![](/images/execl.gif)
+![](/images/cp/1_1.gif)
