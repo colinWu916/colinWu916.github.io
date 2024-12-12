@@ -1,0 +1,618 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>ColinWu</title>
+  
+  <subtitle>Blog by ColinWu</subtitle>
+  <link href="http://example.com/atom.xml" rel="self"/>
+  
+  <link href="http://example.com/"/>
+  <updated>2024-12-12T08:53:30.914Z</updated>
+  <id>http://example.com/</id>
+  
+  <author>
+    <name>吴俊杰</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>五、统一项目规范</title>
+    <link href="http://example.com/2024/12/12/you-xiu-de-tui-wen/5-tong-yi-xiang-mu-gui-fan/"/>
+    <id>http://example.com/2024/12/12/you-xiu-de-tui-wen/5-tong-yi-xiang-mu-gui-fan/</id>
+    <published>2024-12-12T08:35:19.000Z</published>
+    <updated>2024-12-12T08:53:30.914Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h4 id=&quot;1、初始化项目&quot;&gt;&lt;a href=&quot;#1、初始化项目&quot; class=&quot;headerlink&quot; title=&quot;1、初始化项目&quot;&gt;&lt;/a&gt;&lt;font style=&quot;color:black;&quot;&gt;1、初始化项目&lt;/font&gt;&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;vscode</summary>
+        
+      
+    
+    
+    
+    <category term="优秀的推文" scheme="http://example.com/categories/%E4%BC%98%E7%A7%80%E7%9A%84%E6%8E%A8%E6%96%87/"/>
+    
+    
+    <category term="项目规范" scheme="http://example.com/tags/%E9%A1%B9%E7%9B%AE%E8%A7%84%E8%8C%83/"/>
+    
+    <category term="工程规范" scheme="http://example.com/tags/%E5%B7%A5%E7%A8%8B%E8%A7%84%E8%8C%83/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>四、必备Nginx知识</title>
+    <link href="http://example.com/2024/12/12/you-xiu-de-tui-wen/4-bi-bei-nginx-zhi-shi/"/>
+    <id>http://example.com/2024/12/12/you-xiu-de-tui-wen/4-bi-bei-nginx-zhi-shi/</id>
+    <published>2024-12-12T08:34:40.000Z</published>
+    <updated>2024-12-12T08:52:01.948Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;一、了解一点简单的Nginx知识&quot;&gt;&lt;a href=&quot;#一、了解一点简单的Nginx知识&quot; class=&quot;headerlink&quot; title=&quot;一、了解一点简单的Nginx知识&quot;&gt;&lt;/a&gt;&lt;strong&gt;&lt;font style=&quot;color:rgb(0, 0,</summary>
+        
+      
+    
+    
+    
+    <category term="优秀的推文" scheme="http://example.com/categories/%E4%BC%98%E7%A7%80%E7%9A%84%E6%8E%A8%E6%96%87/"/>
+    
+    
+    <category term="Nginx" scheme="http://example.com/tags/Nginx/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>三、Nginx常用的基础配置</title>
+    <link href="http://example.com/2024/12/12/you-xiu-de-tui-wen/3-nginx-chang-yong-de-ji-chu-pei-zhi/"/>
+    <id>http://example.com/2024/12/12/you-xiu-de-tui-wen/3-nginx-chang-yong-de-ji-chu-pei-zhi/</id>
+    <published>2024-12-12T08:33:54.000Z</published>
+    <updated>2024-12-12T08:37:30.590Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h3 id=&quot;基础配置&quot;&gt;&lt;a href=&quot;#基础配置&quot; class=&quot;headerlink&quot; title=&quot;基础配置&quot;&gt;&lt;/a&gt;基础配置&lt;/h3&gt;&lt;pre class=&quot;line-numbers language-nginx&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="优秀的推文" scheme="http://example.com/categories/%E4%BC%98%E7%A7%80%E7%9A%84%E6%8E%A8%E6%96%87/"/>
+    
+    
+    <category term="Nginx" scheme="http://example.com/tags/Nginx/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>二、项目中常用的Nginx配置</title>
+    <link href="http://example.com/2024/12/12/you-xiu-de-tui-wen/2-xiang-mu-zhong-chang-yong-de-nginx-pei-zhi-zong-jie/"/>
+    <id>http://example.com/2024/12/12/you-xiu-de-tui-wen/2-xiang-mu-zhong-chang-yong-de-nginx-pei-zhi-zong-jie/</id>
+    <published>2024-12-12T08:31:44.000Z</published>
+    <updated>2024-12-12T08:39:32.695Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;Nginx是一个高性能的HTTP和反向代理服务器，也是一种轻量级的Web服务器。&lt;/p&gt;
+&lt;h3 id=&quot;1-nginx在应用程序中的作用&quot;&gt;&lt;a href=&quot;#1-nginx在应用程序中的作用&quot; class=&quot;headerlink&quot; title=&quot;1.</summary>
+        
+      
+    
+    
+    
+    <category term="优秀的推文" scheme="http://example.com/categories/%E4%BC%98%E7%A7%80%E7%9A%84%E6%8E%A8%E6%96%87/"/>
+    
+    
+    <category term="Nginx" scheme="http://example.com/tags/Nginx/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>一、React Diff 算法的源码应该怎么读</title>
+    <link href="http://example.com/2024/12/09/you-xiu-de-tui-wen/1-react-diff-suan-fa-de-yuan-ma-ying-gai-zen-me-du/"/>
+    <id>http://example.com/2024/12/09/you-xiu-de-tui-wen/1-react-diff-suan-fa-de-yuan-ma-ying-gai-zen-me-du/</id>
+    <published>2024-12-09T08:00:57.000Z</published>
+    <updated>2024-12-09T08:17:19.797Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;&lt;img src=&quot;/images/et/1_1.png&quot;&gt;&lt;/p&gt;
+&lt;h3 id=&quot;一、函数缓存优化&quot;&gt;&lt;a href=&quot;#一、函数缓存优化&quot; class=&quot;headerlink&quot; title=&quot;一、函数缓存优化&quot;&gt;&lt;/a&gt;&lt;strong&gt;&lt;font</summary>
+        
+      
+    
+    
+    
+    <category term="优秀的推文" scheme="http://example.com/categories/%E4%BC%98%E7%A7%80%E7%9A%84%E6%8E%A8%E6%96%87/"/>
+    
+    
+    <category term="React Diff" scheme="http://example.com/tags/React-Diff/"/>
+    
+    <category term="fiber" scheme="http://example.com/tags/fiber/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>四十五、通信方式总结</title>
+    <link href="http://example.com/2024/12/06/wo-bu-hui-vue3/45-tong-xin-fang-shi-zong-jie/"/>
+    <id>http://example.com/2024/12/06/wo-bu-hui-vue3/45-tong-xin-fang-shi-zong-jie/</id>
+    <published>2024-12-06T02:08:24.000Z</published>
+    <updated>2024-12-06T02:58:08.380Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;通信方式整体来讲能够分为两大类：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;父子组件通信&lt;/li&gt;
+&lt;li&gt;跨层级组件通信&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;strong&gt;父子组件通信&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Props：通过 Props</summary>
+        
+      
+    
+    
+    
+    <category term="我不会vue3" scheme="http://example.com/categories/%E6%88%91%E4%B8%8D%E4%BC%9Avue3/"/>
+    
+    
+    <category term="vue3" scheme="http://example.com/tags/vue3/"/>
+    
+    <category term="通信方式总结" scheme="http://example.com/tags/%E9%80%9A%E4%BF%A1%E6%96%B9%E5%BC%8F%E6%80%BB%E7%BB%93/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>四十四、动态路由</title>
+    <link href="http://example.com/2024/12/06/wo-bu-hui-vue3/44-dong-tai-lu-you/"/>
+    <id>http://example.com/2024/12/06/wo-bu-hui-vue3/44-dong-tai-lu-you/</id>
+    <published>2024-12-06T02:07:44.000Z</published>
+    <updated>2024-12-06T02:57:41.128Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;ul&gt;
+&lt;li&gt;动态参数路由&lt;ul&gt;
+&lt;li&gt;/stu/:id&lt;/li&gt;
+&lt;li&gt;/stu/1、/stu/2&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;动态的添加/删除路由表里面的路由&lt;ul&gt;
+&lt;li&gt;角色A：1、2、3、4、5&lt;/li&gt;
+&lt;li&gt;角色B：1、2、4&lt;/li&gt;
+</summary>
+        
+      
+    
+    
+    
+    <category term="我不会vue3" scheme="http://example.com/categories/%E6%88%91%E4%B8%8D%E4%BC%9Avue3/"/>
+    
+    
+    <category term="vue3" scheme="http://example.com/tags/vue3/"/>
+    
+    <category term="vueRouter" scheme="http://example.com/tags/vueRouter/"/>
+    
+    <category term="动态路由" scheme="http://example.com/tags/%E5%8A%A8%E6%80%81%E8%B7%AF%E7%94%B1/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>四十三、导航守卫</title>
+    <link href="http://example.com/2024/12/06/wo-bu-hui-vue3/43-dao-hang-shou-wei/"/>
+    <id>http://example.com/2024/12/06/wo-bu-hui-vue3/43-dao-hang-shou-wei/</id>
+    <published>2024-12-06T02:07:10.000Z</published>
+    <updated>2024-12-06T02:56:52.851Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;所谓导航守卫，就是在当你进行导航的时候将其拦截下来，从而方便做一些其他的事情。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;快速上手&lt;/strong&gt;&lt;/p&gt;
+&lt;pre class=&quot;line-numbers language-javascript&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="我不会vue3" scheme="http://example.com/categories/%E6%88%91%E4%B8%8D%E4%BC%9Avue3/"/>
+    
+    
+    <category term="vue3" scheme="http://example.com/tags/vue3/"/>
+    
+    <category term="vueRouter" scheme="http://example.com/tags/vueRouter/"/>
+    
+    <category term="导航守卫" scheme="http://example.com/tags/%E5%AF%BC%E8%88%AA%E5%AE%88%E5%8D%AB/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>四十二、内置组件和函数</title>
+    <link href="http://example.com/2024/12/06/wo-bu-hui-vue3/42-nei-zhi-zu-jian-he-han-shu/"/>
+    <id>http://example.com/2024/12/06/wo-bu-hui-vue3/42-nei-zhi-zu-jian-he-han-shu/</id>
+    <published>2024-12-06T02:06:31.000Z</published>
+    <updated>2024-12-06T02:56:09.104Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;内置组件&quot;&gt;&lt;a href=&quot;#内置组件&quot; class=&quot;headerlink&quot; title=&quot;内置组件&quot;&gt;&lt;/a&gt;内置组件&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;1.</summary>
+        
+      
+    
+    
+    
+    <category term="我不会vue3" scheme="http://example.com/categories/%E6%88%91%E4%B8%8D%E4%BC%9Avue3/"/>
+    
+    
+    <category term="vue3" scheme="http://example.com/tags/vue3/"/>
+    
+    <category term="内置组件" scheme="http://example.com/tags/%E5%86%85%E7%BD%AE%E7%BB%84%E4%BB%B6/"/>
+    
+    <category term="内置函数" scheme="http://example.com/tags/%E5%86%85%E7%BD%AE%E5%87%BD%E6%95%B0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>四十一、路由组件传参</title>
+    <link href="http://example.com/2024/12/06/wo-bu-hui-vue3/41-lu-you-zu-jian-chuan-can/"/>
+    <id>http://example.com/2024/12/06/wo-bu-hui-vue3/41-lu-you-zu-jian-chuan-can/</id>
+    <published>2024-12-06T02:05:58.000Z</published>
+    <updated>2024-12-06T02:08:39.941Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;路由组件传参是指&lt;strong&gt;将参数直接以 props 的形式传递给组件&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;快速上手&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;回顾如何获取路由参数。假设有如下的动态路由：&lt;/p&gt;
+&lt;pre class=&quot;line-numbers</summary>
+        
+      
+    
+    
+    
+    <category term="我不会vue3" scheme="http://example.com/categories/%E6%88%91%E4%B8%8D%E4%BC%9Avue3/"/>
+    
+    
+    <category term="vue3" scheme="http://example.com/tags/vue3/"/>
+    
+    <category term="路由" scheme="http://example.com/tags/%E8%B7%AF%E7%94%B1/"/>
+    
+    <category term="路由传参" scheme="http://example.com/tags/%E8%B7%AF%E7%94%B1%E4%BC%A0%E5%8F%82/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>四十、路由匹配语法</title>
+    <link href="http://example.com/2024/12/06/wo-bu-hui-vue3/40-lu-you-pi-pei-yu-fa/"/>
+    <id>http://example.com/2024/12/06/wo-bu-hui-vue3/40-lu-you-pi-pei-yu-fa/</id>
+    <published>2024-12-06T02:05:29.000Z</published>
+    <updated>2024-12-06T02:08:39.950Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;前面所介绍的路由匹配：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;静态路由匹配：/about —&amp;gt; /about&lt;/li&gt;
+&lt;li&gt;动态路由匹配：/users/:id —&amp;gt;</summary>
+        
+      
+    
+    
+    
+    <category term="我不会vue3" scheme="http://example.com/categories/%E6%88%91%E4%B8%8D%E4%BC%9Avue3/"/>
+    
+    
+    <category term="vue3" scheme="http://example.com/tags/vue3/"/>
+    
+    <category term="路由" scheme="http://example.com/tags/%E8%B7%AF%E7%94%B1/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>三十九、路由零碎知识</title>
+    <link href="http://example.com/2024/12/06/wo-bu-hui-vue3/39-lu-you-ling-sui-zhi-shi/"/>
+    <id>http://example.com/2024/12/06/wo-bu-hui-vue3/39-lu-you-ling-sui-zhi-shi/</id>
+    <published>2024-12-06T02:05:02.000Z</published>
+    <updated>2024-12-06T02:08:39.950Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;&lt;strong&gt;1. 别名&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;通过 alias 可以设置别名。&lt;/p&gt;
+&lt;p&gt;假设你有一个路由 /user/:id/profile 显示用户的个人资料，你希望能够通过 /profile/:id</summary>
+        
+      
+    
+    
+    
+    <category term="我不会vue3" scheme="http://example.com/categories/%E6%88%91%E4%B8%8D%E4%BC%9Avue3/"/>
+    
+    
+    <category term="vue3" scheme="http://example.com/tags/vue3/"/>
+    
+    <category term="路由" scheme="http://example.com/tags/%E8%B7%AF%E7%94%B1/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>三十八、路由模式</title>
+    <link href="http://example.com/2024/12/06/wo-bu-hui-vue3/38-lu-you-mo-shi/"/>
+    <id>http://example.com/2024/12/06/wo-bu-hui-vue3/38-lu-you-mo-shi/</id>
+    <published>2024-12-06T02:04:33.000Z</published>
+    <updated>2024-12-06T02:55:06.123Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;Vue-router支持 3 种模式：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Hash模式&lt;/li&gt;
+&lt;li&gt;HTML5模式&lt;/li&gt;
+&lt;li&gt;Memory模式&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;strong&gt;Hash模式&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Hash &lt;strong&gt;是</summary>
+        
+      
+    
+    
+    
+    <category term="我不会vue3" scheme="http://example.com/categories/%E6%88%91%E4%B8%8D%E4%BC%9Avue3/"/>
+    
+    
+    <category term="vue3" scheme="http://example.com/tags/vue3/"/>
+    
+    <category term="路由模式" scheme="http://example.com/tags/%E8%B7%AF%E7%94%B1%E6%A8%A1%E5%BC%8F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>三十七、Suspense</title>
+    <link href="http://example.com/2024/12/06/wo-bu-hui-vue3/37-suspense/"/>
+    <id>http://example.com/2024/12/06/wo-bu-hui-vue3/37-suspense/</id>
+    <published>2024-12-06T02:04:06.000Z</published>
+    <updated>2024-12-06T02:54:09.756Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;Suspense，本意是“悬而未决”的意思，这是 Vue3 新增的一个内置组件，主要用来在组件树中协调对异步依赖的处理。&lt;/p&gt;
+&lt;p&gt;假设有如下目录结构：&lt;/p&gt;
+&lt;pre class=&quot;line-numbers language-javascript&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="我不会vue3" scheme="http://example.com/categories/%E6%88%91%E4%B8%8D%E4%BC%9Avue3/"/>
+    
+    
+    <category term="vue3" scheme="http://example.com/tags/vue3/"/>
+    
+    <category term="suspense" scheme="http://example.com/tags/suspense/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>三十六、异步组件</title>
+    <link href="http://example.com/2024/12/06/wo-bu-hui-vue3/36-yi-bu-zu-jian/"/>
+    <id>http://example.com/2024/12/06/wo-bu-hui-vue3/36-yi-bu-zu-jian/</id>
+    <published>2024-12-06T02:03:27.000Z</published>
+    <updated>2024-12-06T02:08:39.953Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;异步组件：指的是&lt;strong&gt;在需要时才加载&lt;/strong&gt;的组件。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;基本用法&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;在 Vue 中，可以通过 defineAsyncComponent 来定义一个异步组件&lt;/p&gt;
+&lt;pre</summary>
+        
+      
+    
+    
+    
+    <category term="我不会vue3" scheme="http://example.com/categories/%E6%88%91%E4%B8%8D%E4%BC%9Avue3/"/>
+    
+    
+    <category term="vue3" scheme="http://example.com/tags/vue3/"/>
+    
+    <category term="异步组件" scheme="http://example.com/tags/%E5%BC%82%E6%AD%A5%E7%BB%84%E4%BB%B6/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>三十五、teleport</title>
+    <link href="http://example.com/2024/12/06/wo-bu-hui-vue3/35-teleport/"/>
+    <id>http://example.com/2024/12/06/wo-bu-hui-vue3/35-teleport/</id>
+    <published>2024-12-06T02:02:58.000Z</published>
+    <updated>2024-12-06T02:08:39.962Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;这是 Vue 里面的一个内置组件。作用：将一个组件内部的一部分模板“传送”到该组件的 DOM</summary>
+        
+      
+    
+    
+    
+    <category term="我不会vue3" scheme="http://example.com/categories/%E6%88%91%E4%B8%8D%E4%BC%9Avue3/"/>
+    
+    
+    <category term="vue3" scheme="http://example.com/tags/vue3/"/>
+    
+    <category term="teleport" scheme="http://example.com/tags/teleport/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>三十四、Transition</title>
+    <link href="http://example.com/2024/12/06/wo-bu-hui-vue3/34-transition/"/>
+    <id>http://example.com/2024/12/06/wo-bu-hui-vue3/34-transition/</id>
+    <published>2024-12-06T02:02:37.000Z</published>
+    <updated>2024-12-06T02:43:47.372Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;Transition 是 Vue 提供的一个内置组件，作用：会在一个元素或组件&lt;strong&gt;进入&lt;/strong&gt;和&lt;strong&gt;离开&lt;/strong&gt; DOM 时应用动画。&lt;/p&gt;
+&lt;p&gt;在 Web</summary>
+        
+      
+    
+    
+    
+    <category term="我不会vue3" scheme="http://example.com/categories/%E6%88%91%E4%B8%8D%E4%BC%9Avue3/"/>
+    
+    
+    <category term="vue3" scheme="http://example.com/tags/vue3/"/>
+    
+    <category term="transition" scheme="http://example.com/tags/transition/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>三十三、自定义指令</title>
+    <link href="http://example.com/2024/12/06/wo-bu-hui-vue3/33-zi-ding-yi-zhi-ling/"/>
+    <id>http://example.com/2024/12/06/wo-bu-hui-vue3/33-zi-ding-yi-zhi-ling/</id>
+    <published>2024-12-06T02:01:58.000Z</published>
+    <updated>2024-12-06T02:08:39.963Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;Vue内置指令：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;v-if&lt;/li&gt;
+&lt;li&gt;v-for&lt;/li&gt;
+&lt;li&gt;v-show&lt;/li&gt;
+&lt;li&gt;v-html&lt;/li&gt;
+&lt;li&gt;v-model&lt;/li&gt;
+&lt;li&gt;v-on&lt;/li&gt;
+&lt;li&gt;v-bind&lt;/li&gt;
+&lt;li&gt;….&lt;/li&gt;</summary>
+        
+      
+    
+    
+    
+    <category term="我不会vue3" scheme="http://example.com/categories/%E6%88%91%E4%B8%8D%E4%BC%9Avue3/"/>
+    
+    
+    <category term="vue3" scheme="http://example.com/tags/vue3/"/>
+    
+    <category term="自定义指令" scheme="http://example.com/tags/%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8C%87%E4%BB%A4/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>三十二、组合式函数</title>
+    <link href="http://example.com/2024/12/06/wo-bu-hui-vue3/32-zu-he-shi-han-shu/"/>
+    <id>http://example.com/2024/12/06/wo-bu-hui-vue3/32-zu-he-shi-han-shu/</id>
+    <published>2024-12-06T02:01:36.000Z</published>
+    <updated>2024-12-06T02:52:46.483Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;组合式函数，本质上也就是&lt;strong&gt;代码复用&lt;/strong&gt;的一种方式。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;组件：对结构、样式、逻辑进行复用&lt;/li&gt;
+&lt;li&gt;组合式函数：侧重于对 &lt;strong&gt;有状态&lt;/strong&gt;</summary>
+        
+      
+    
+    
+    
+    <category term="我不会vue3" scheme="http://example.com/categories/%E6%88%91%E4%B8%8D%E4%BC%9Avue3/"/>
+    
+    
+    <category term="vue3" scheme="http://example.com/tags/vue3/"/>
+    
+    <category term="组合式函数" scheme="http://example.com/tags/%E7%BB%84%E5%90%88%E5%BC%8F%E5%87%BD%E6%95%B0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>三十一、依赖注入</title>
+    <link href="http://example.com/2024/12/06/wo-bu-hui-vue3/31-yi-lai-zhu-ru/"/>
+    <id>http://example.com/2024/12/06/wo-bu-hui-vue3/31-yi-lai-zhu-ru/</id>
+    <published>2024-12-06T02:01:10.000Z</published>
+    <updated>2024-12-06T02:43:47.373Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;Props 逐级传递存在的问题：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/vue3/31_1.png&quot;&gt;&lt;br&gt;使用 Pinia 能够解决该问题，但是如果不用 Pinia 呢？&lt;/p&gt;
+&lt;p&gt;可以用依赖注入。&lt;/p&gt;
+&lt;h2 id=&quot;快速上手&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="我不会vue3" scheme="http://example.com/categories/%E6%88%91%E4%B8%8D%E4%BC%9Avue3/"/>
+    
+    
+    <category term="vue3" scheme="http://example.com/tags/vue3/"/>
+    
+    <category term="依赖注入" scheme="http://example.com/tags/%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5/"/>
+    
+  </entry>
+  
+</feed>

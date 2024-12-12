@@ -1,0 +1,1730 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="nginx">
+    <meta name="description" content="不会后端的前端不是一个好前端，凡是慢慢来，慢慢了解介于前后端中间的地界，再慢慢转向学习后端，你的最低目标是全栈啊......">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>一、搭建服务器并部署项目 | ColinWu</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+        <link rel="stylesheet" type="text/css" href="/css/reward.css">
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 7.3.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="alternate" href="/atom.xml" title="ColinWu" type="application/atom+xml">
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">ColinWu</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">ColinWu</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/colinWu916/colinWu916.github.io" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/colinWu916/colinWu916.github.io" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/17.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">一、搭建服务器并部署项目</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/Nginx/">
+                                <span class="chip bg-color">Nginx</span>
+                            </a>
+                        
+                            <a href="/tags/%E9%83%A8%E7%BD%B2/">
+                                <span class="chip bg-color">部署</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E9%83%A8%E7%BD%B2%E6%9C%8D%E5%8A%A1/" class="post-category">
+                                部署服务
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2024-12-03
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2024-12-04
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    5.1k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    22 分
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h3 id="1、购买服务器"><a href="#1、购买服务器" class="headerlink" title="1、购买服务器"></a>1、购买服务器</h3><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// 1、看什么看自己买服务器去</span>
+
+<span class="token comment">// 买完之后服务器开机</span>
+
+<span class="token comment">// 然后安装Xshell（网址：https://www.xshell.com/zh/free-for-home-school/）</span>
+
+<span class="token comment">// 安装好之后进入Xshell新建会话</span>
+
+<span class="token comment">// 名称随便取，主机为服务器的公网ip,连接输入用户名（root）密码(自己配置服务器的时候改一下)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="2、安装docker服务"><a href="#2、安装docker服务" class="headerlink" title="2、安装docker服务"></a>2、安装docker服务</h3><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// docker 概念</span>
+<span class="token comment">/* 1、docker是一个容器引擎(创建容器)，虚拟化技术的一种
+2、虚拟化技术：虚拟机、K8S(硬盘、内存、服务)
+3、容器(小型的linux系统)
+4、举例
+   手机 ===&gt; docker
+   app ===&gt; 容器
+   软件安装包 ===&gt; 镜像 */</span>
+
+
+
+<span class="token comment">// 1、卸载旧的版本（\是换行符，可以写成一行，注意每个docker之间有空格）</span>
+sudo yum remove docker \
+docker<span class="token operator">-</span>client \
+docker<span class="token operator">-</span>client<span class="token operator">-</span>latest \
+docker<span class="token operator">-</span>common \
+docker<span class="token operator">-</span>latest \
+docker<span class="token operator">-</span>latest<span class="token operator">-</span>logrotate \
+docker<span class="token operator">-</span>logrotate \
+docker<span class="token operator">-</span>engine
+
+<span class="token comment">// 2、安装社区版Docker Engine-Community</span>
+
+<span class="token comment">// 在新主机上首次安装 Docker Engine-Community 之前，需要设置 Docker 仓库。</span>
+<span class="token comment">// 之后，您可以从仓库安装和更新 Docker。</span>
+
+<span class="token comment">// 安装所需的软件包。yum-utils 提供了 yum-config-manager，并且 device mapper</span>
+<span class="token comment">// 存储驱动程序需要 device-mapper-persistent-data 和 lvm2。</span>
+<span class="token comment">// 指令为：</span>
+sudo yum install <span class="token operator">-</span>y yum<span class="token operator">-</span>utils device<span class="token operator">-</span>mapper<span class="token operator">-</span>persistent<span class="token operator">-</span>data lvm2
+
+<span class="token comment">// 3、设置稳定仓库</span>
+sudo yum<span class="token operator">-</span>config<span class="token operator">-</span>manager <span class="token operator">--</span>add<span class="token operator">-</span>repo https<span class="token operator">:</span><span class="token operator">/</span><span class="token operator">/</span>download<span class="token punctuation">.</span>docker<span class="token punctuation">.</span>com<span class="token operator">/</span>linux<span class="token operator">/</span>centos<span class="token operator">/</span>docker<span class="token operator">-</span>ce<span class="token punctuation">.</span>repo
+
+<span class="token comment">// 4、安装最新版本docker: 过程中所有的提问都选：y</span>
+sudo yum install docker<span class="token operator">-</span>ce docker<span class="token operator">-</span>ce<span class="token operator">-</span>cli containerd<span class="token punctuation">.</span>io
+
+<span class="token comment">// 5、安装指定版本docker</span>
+<span class="token comment">// 列出并排序您存储库中可用的版本。此示例按版本号（从高到低）对结果进行排序。</span>
+yum list docker<span class="token operator">-</span>ce <span class="token operator">--</span>showduplicates <span class="token operator">|</span> sort <span class="token operator">-</span>r
+<span class="token comment">// 输出为：</span>
+docker<span class="token operator">-</span>ce<span class="token punctuation">.</span>x86_64  <span class="token number">3</span><span class="token operator">:</span><span class="token number">18.09</span><span class="token number">.1</span><span class="token operator">-</span><span class="token number">3</span><span class="token punctuation">.</span>el7                     docker<span class="token operator">-</span>ce<span class="token operator">-</span>stable
+docker<span class="token operator">-</span>ce<span class="token punctuation">.</span>x86_64  <span class="token number">3</span><span class="token operator">:</span><span class="token number">18.09</span><span class="token number">.0</span><span class="token operator">-</span><span class="token number">3</span><span class="token punctuation">.</span>el7                     docker<span class="token operator">-</span>ce<span class="token operator">-</span>stable
+docker<span class="token operator">-</span>ce<span class="token punctuation">.</span>x86_64  <span class="token number">18.06</span><span class="token number">.1</span><span class="token punctuation">.</span>ce<span class="token operator">-</span><span class="token number">3</span><span class="token punctuation">.</span>el7                    docker<span class="token operator">-</span>ce<span class="token operator">-</span>stable
+docker<span class="token operator">-</span>ce<span class="token punctuation">.</span>x86_64  <span class="token number">18.06</span><span class="token number">.0</span><span class="token punctuation">.</span>ce<span class="token operator">-</span><span class="token number">3</span><span class="token punctuation">.</span>el7                    docker<span class="token operator">-</span>ce<span class="token operator">-</span>stable
+
+<span class="token comment">// 通过其完整的软件包名称安装特定版本，该软件包名称是软件包名称（docker-ce）加上版本字</span>
+<span class="token comment">// 符串（第二列），从第一个冒号（:）一直到第一个连字符，并用连字符（-）分隔。</span>
+<span class="token comment">// 例如：docker-ce-18.09.1。</span>
+sudo yum install docker<span class="token operator">-</span>ce<span class="token operator">-</span><span class="token operator">&lt;</span><span class="token constant">VERSION_STRING</span><span class="token operator">&gt;</span> docker<span class="token operator">-</span>ce<span class="token operator">-</span>cli<span class="token operator">-</span><span class="token operator">&lt;</span><span class="token constant">VERSION_STRING</span><span class="token operator">&gt;</span> containerd<span class="token punctuation">.</span>io
+
+<span class="token comment">// 6、启动docker</span>
+sudo systemctl start docker
+
+<span class="token comment">// 7、验证docker: 通过运行 hello-world 映像来验证是否正确安装了 Docker Engine-Community</span>
+sudo docker run hello<span class="token operator">-</span>world
+<span class="token comment">// 如果提示：Unable to find image ‘hello-world:latest’ locally</span>
+<span class="token comment">// 不要慌多执行几次：</span>
+sudo systemctl start docker
+sudo docker run hello<span class="token operator">-</span>world
+
+<span class="token comment">// 8、查看docker版本</span>
+docker <span class="token operator">--</span>version
+
+<span class="token comment">// 9、列出当前正在跑的docker镜像,也叫查看容器</span>
+docker ps
+<span class="token comment">// 输出表头为</span>
+<span class="token constant">CONTAINER</span> <span class="token constant">ID</span>   <span class="token constant">IMAGE</span>     <span class="token constant">COMMAND</span>   <span class="token constant">CREATED</span>   <span class="token constant">STATUS</span>    <span class="token constant">PORTS</span>     <span class="token constant">NAMES</span>
+
+<span class="token comment">// 如果像关闭某一个镜像</span>
+docker stop <span class="token operator">&lt;</span><span class="token constant">CONTAINER</span> <span class="token constant">ID</span><span class="token operator">&gt;</span>
+
+<span class="token comment">// 查看docker里有什么镜像</span>
+  docker images<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="3、基于docker安装nginx"><a href="#3、基于docker安装nginx" class="headerlink" title="3、基于docker安装nginx"></a>3、基于docker安装nginx</h3><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// 1、先在docker仓库里查一下有哪些nginx镜像</span>
+docker search nginx
+
+<span class="token comment">// 2、安装nginx</span>
+docker pull nginx
+
+<span class="token comment">// 3、创建一个nginx镜像并跑起来</span>
+docker run <span class="token operator">-</span>d <span class="token operator">-</span>p <span class="token number">8080</span><span class="token operator">:</span><span class="token number">80</span> <span class="token operator">--</span>name nginx<span class="token operator">-</span><span class="token number">8080</span> nginx
+<span class="token comment">// 这里的-d指后台运行</span>
+<span class="token comment">// -p 端口号映射，冒号前是本机端口， 冒号后是容器端口，后面跟着镜像名字(nginx-8080)</span>
+<span class="token comment">// 后面追加nginx是你要开启的镜像的名称，那我们开启的不就是nginx这个镜像嘛</span>
+
+<span class="token comment">// 4、查看一下是否跑起来了这个镜像</span>
+docker ps
+<span class="token comment">// 输出结果为</span>
+<span class="token constant">CONTAINER</span> <span class="token constant">ID</span>   <span class="token constant">IMAGE</span>     <span class="token constant">COMMAND</span>                  <span class="token constant">CREATED</span>         <span class="token constant">STATUS</span>         <span class="token constant">PORTS</span>                                   <span class="token constant">NAMES</span>
+ca8048adfeac   nginx     <span class="token string">"/docker-entrypoint.…"</span>   <span class="token number">2</span> minutes ago   Up <span class="token number">2</span> minutes   <span class="token number">0.0</span><span class="token number">.0</span><span class="token number">.0</span><span class="token operator">:</span><span class="token number">8080</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token number">80</span><span class="token operator">/</span>tcp<span class="token punctuation">,</span> <span class="token operator">:</span><span class="token operator">:</span><span class="token operator">:</span><span class="token number">8080</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token number">80</span><span class="token operator">/</span>tcp   nginx<span class="token operator">-</span><span class="token number">8080</span>
+
+<span class="token comment">// 5、查看所有的nginx镜像，包括跑起来的和没跑起来的</span>
+docker ps <span class="token operator">-</span>a
+<span class="token comment">// 输出结果为</span>
+<span class="token constant">CONTAINER</span> <span class="token constant">ID</span>   <span class="token constant">IMAGE</span>         <span class="token constant">COMMAND</span>                  <span class="token constant">CREATED</span>         <span class="token constant">STATUS</span>                  <span class="token constant">PORTS</span>                                   <span class="token constant">NAMES</span>
+ca8048adfeac   nginx         <span class="token string">"/docker-entrypoint.…"</span>   <span class="token number">4</span> minutes ago   Up <span class="token number">4</span> minutes            <span class="token number">0.0</span><span class="token number">.0</span><span class="token number">.0</span><span class="token operator">:</span><span class="token number">8080</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token number">80</span><span class="token operator">/</span>tcp<span class="token punctuation">,</span> <span class="token operator">:</span><span class="token operator">:</span><span class="token operator">:</span><span class="token number">8080</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token number">80</span><span class="token operator">/</span>tcp   nginx<span class="token operator">-</span><span class="token number">8080</span>
+aa80dfc77d4b   hello<span class="token operator">-</span>world   <span class="token string">"/hello"</span>                 <span class="token number">2</span> days ago      <span class="token function">Exited</span> <span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span> <span class="token number">2</span> days ago                                           bold_tharp
+1f9bd668b3c6   hello<span class="token operator">-</span>world   <span class="token string">"/hello"</span>                 <span class="token number">2</span> days ago      <span class="token function">Exited</span> <span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span> <span class="token number">2</span> days ago                                           unruffled_edison
+
+<span class="token comment">// 6、关闭nginx服务</span>
+docker stop nginx<span class="token operator">-</span><span class="token number">8080</span>
+
+<span class="token comment">// 7、重新启动那个nginx服务</span>
+docker restart nginx<span class="token operator">-</span><span class="token number">8080</span>
+
+<span class="token comment">// 8、再启动一个nginx镜像代理到8081端口</span>
+docker run <span class="token operator">-</span>d <span class="token operator">-</span>p <span class="token number">8081</span><span class="token operator">:</span><span class="token number">80</span> <span class="token operator">--</span>name nginx<span class="token operator">-</span><span class="token number">8081</span> nginx
+
+
+<span class="token comment">// 8、删除一个镜像</span>
+docker remove nginx<span class="token operator">-</span><span class="token number">8081</span>
+
+<span class="token comment">// 至此 简单的docker安装nginx并启动算是成功了，接下来就会产生一个疑问，如果我想修改nginx的配置怎么办，</span>
+<span class="token comment">// 我想更改nginx中的资源文件怎么办？</span>
+<span class="token comment">// 接下来给出一个最实用的办法，就是将容器中的目录和本机目录做映射，以达到修改本机目录文件就影响到容器中的文件。</span>
+
+<span class="token comment">// 1、清个屏</span>
+clear
+
+<span class="token comment">// 2、进入到home文件夹</span>
+cd home
+
+<span class="token comment">// 3、创建一个文件夹</span>
+mkdir jjwu27<span class="token operator">-</span>nginx
+
+<span class="token comment">// 4、进入到jjwu27-nginx文件夹</span>
+cd jjwu27<span class="token operator">-</span>nginx
+
+<span class="token comment">// 5、创建一个nginx文件夹</span>
+mkdir nginx
+
+<span class="token comment">// 6、进入nginx文件夹</span>
+cd nginx
+
+<span class="token comment">// 7、创建两个新的文件夹</span>
+mkdir conf<span class="token punctuation">.</span>d
+mkdir html
+
+<span class="token comment">// 8、在conf.d文件夹下新建default.conf文件，并进入</span>
+vi <span class="token keyword">default</span><span class="token punctuation">.</span>conf
+i
+
+<span class="token comment">// 9、退出文件（仅用于练习）</span>
+<span class="token literal-property property">esc</span>
+<span class="token operator">:</span>wq
+
+<span class="token comment">// 10、进入文件里面</span>
+vi <span class="token keyword">default</span><span class="token punctuation">.</span>conf
+i
+
+<span class="token comment">// 11、复制以下内容进去</span>
+server <span class="token punctuation">{</span>
+    listen       <span class="token number">80</span><span class="token punctuation">;</span>
+    server_name  localhost<span class="token punctuation">;</span>
+    # 原来的配置，匹配根路径
+    #location <span class="token operator">/</span> <span class="token punctuation">{</span>
+    #    root   <span class="token operator">/</span>usr<span class="token operator">/</span>share<span class="token operator">/</span>nginx<span class="token operator">/</span>html<span class="token punctuation">;</span>
+    #    index  index<span class="token punctuation">.</span>html index<span class="token punctuation">.</span>htm<span class="token punctuation">;</span>
+    #<span class="token punctuation">}</span>
+    # 更该配置，匹配<span class="token operator">/</span>路径，修改index<span class="token punctuation">.</span>html的名字，用于区分该配置文件替换了容器中的配置文件
+    location <span class="token operator">/</span> <span class="token punctuation">{</span>
+        root   <span class="token operator">/</span>usr<span class="token operator">/</span>share<span class="token operator">/</span>nginx<span class="token operator">/</span>html<span class="token punctuation">;</span>
+        index  index<span class="token operator">-</span>test<span class="token punctuation">.</span>html index<span class="token punctuation">.</span>html<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// 简单解释，nginx默认会去找index.html文件，我们修改后，就会去找index-test.html文件</span>
+
+<span class="token comment">// 12、启动一个nginx镜像，映射路径</span>
+<span class="token comment">// 我们先把8080关了，重新起一个</span>
+nginx stop nginx<span class="token operator">-</span><span class="token number">8080</span>
+<span class="token comment">// 查看一个文件所处的完整路径</span>
+realpath conf<span class="token punctuation">.</span>d
+<span class="token comment">// 输出为：/home/jjwu27-nginx/nginx/conf.d/conf.d</span>
+<span class="token comment">// 实际路径为：/home/jjwu27-nginx/nginx/conf.d</span>
+<span class="token comment">// 启动8080端口并完成文件映射</span>
+<span class="token comment">/* 命令比较长，其实就是多加了两个参数，-v，-v的意思就是冒号前面代表本机路径，冒号后面代表容器内的路径，两个路径进行了映射，本机路径中的文件会覆盖容器内的文件。
+nginx容器内的一些文件位置，需要注意的是这些是容器内的文件，不是你本机的，所以你在本机的etc文件下是找不到nginx文件夹的
+日志位置：/var/log/nginx/
+配置文件位置：/etc/nginx/
+项目位置：/usr/share/nginx/html */</span>
+docker run <span class="token operator">-</span>d <span class="token operator">-</span>p <span class="token number">8080</span><span class="token operator">:</span><span class="token number">80</span> <span class="token operator">-</span>v <span class="token operator">/</span>home<span class="token operator">/</span>jjwu27<span class="token operator">-</span>nginx<span class="token operator">/</span>nginx<span class="token operator">/</span>conf<span class="token punctuation">.</span>d<span class="token operator">:</span><span class="token operator">/</span>etc<span class="token operator">/</span>nginx<span class="token operator">/</span>conf<span class="token punctuation">.</span>d  <span class="token operator">-</span>v <span class="token operator">/</span>home<span class="token operator">/</span>jjwu27<span class="token operator">-</span>nginx<span class="token operator">/</span>nginx<span class="token operator">/</span>html<span class="token operator">:</span><span class="token operator">/</span>usr<span class="token operator">/</span>share<span class="token operator">/</span>nginx<span class="token operator">/</span>html nginx
+
+<span class="token comment">// 13、网页端访问路径：公网ip加上端口号</span>
+<span class="token literal-property property">http</span><span class="token operator">:</span><span class="token operator">/</span><span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">175.27.215.117:8080</span><span class="token regex-delimiter">/</span></span> 
+<span class="token comment">// 这个时候会报错说403 Forbidden</span>
+<span class="token comment">// 因为我们没有在/home/jjwu27-nginx/nginx路径下创建html文件呀</span>
+
+<span class="token comment">// 14、回到nginx文件夹，进入到html文件夹，在html文件夹下创建index.html文件</span>
+cd html
+vi index<span class="token punctuation">.</span>html
+
+<span class="token comment">// 15、在index.html文件夹下复制以下内容</span>
+<span class="token operator">&lt;</span>html<span class="token operator">&gt;</span>
+  <span class="token operator">&lt;</span>body<span class="token operator">&gt;</span>
+    <span class="token operator">&lt;</span>h2<span class="token operator">&gt;</span>my name is jjwu27<span class="token operator">&lt;</span><span class="token operator">/</span>h2<span class="token operator">&gt;</span>
+  <span class="token operator">&lt;</span><span class="token operator">/</span>body<span class="token operator">&gt;</span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>html<span class="token operator">&gt;</span>
+
+<span class="token comment">// 16、我们发现还是不行，为什么呢，因为我们映射的是index-test.html文件呀</span>
+<span class="token comment">// 所以修改一下文件名称</span>
+mv index<span class="token punctuation">.</span>html index<span class="token operator">-</span>test<span class="token punctuation">.</span>html
+
+<span class="token comment">// 17、你会神奇的发现可以啦！！！！！！！！！！！！！！！！！！！！！</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<h3 id="4、nginx反向代理"><a href="#4、nginx反向代理" class="headerlink" title="4、nginx反向代理"></a>4、nginx反向代理</h3><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// 此时静态页面网站已经部署上了，但是还是会显示一个端口8080出来，就十分不爽，</span>
+<span class="token comment">// 怎么把端口干掉后换成XXXXX.com/demo1 或者 XXXXX.com/demo2这种效果呢？</span>
+<span class="token comment">// 下面使用nginx的反向代理实现。</span>
+
+<span class="token comment">// 1、回到nginx目录，在nginx下创建文件夹conf.d2</span>
+mkdir conf<span class="token punctuation">.</span>d2
+
+<span class="token comment">// 2、在cong.d2文件夹下创建配置文件</span>
+cd conf<span class="token punctuation">.</span>d2
+vi <span class="token keyword">default</span><span class="token punctuation">.</span>conf
+i
+
+<span class="token comment">// 3、复制粘贴以下内容</span>
+<span class="token comment">// 注意注意！！！！！！！！！！！！</span>
+<span class="token comment">// 文本里的分号不能省略！！！！！！！！！！！！！！！！！！！！！！</span>
+server <span class="token punctuation">{</span>
+    listen       <span class="token number">80</span><span class="token punctuation">;</span>
+    server_name  localhost<span class="token punctuation">;</span>
+    location <span class="token operator">/</span>demo <span class="token punctuation">{</span>
+        # 在该位置配置反向代理，将ip<span class="token operator">/</span>demo1请求拦截，发送给<span class="token number">8080</span>端口，如果不是本机请使用公网ip
+        proxy_pass   http<span class="token operator">:</span><span class="token operator">/</span><span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">你的刚才的ip地址:8080</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">;</span> <span class="token comment">//http://175.27.215.117:8080/;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// 4、再启动一个nginx(80)，专门作为反向代理映射，将本机80端口代理到nginx的80端口上，</span>
+<span class="token comment">// 并映射两端的配置文件地址。</span>
+docker run <span class="token operator">-</span>d <span class="token operator">-</span>p <span class="token number">80</span><span class="token operator">:</span><span class="token number">80</span> <span class="token operator">-</span>v <span class="token operator">/</span>home<span class="token operator">/</span>jjwu27<span class="token operator">-</span>nginx<span class="token operator">/</span>nginx<span class="token operator">/</span>conf<span class="token punctuation">.</span>d2<span class="token operator">:</span><span class="token operator">/</span>etc<span class="token operator">/</span>nginx<span class="token operator">/</span>conf<span class="token punctuation">.</span>d nginx
+
+<span class="token comment">// 5、你会神奇的发现访问：http://175.27.215.117/demo</span>
+<span class="token comment">// 请求的页面是8080端口的页面</span>
+
+<span class="token comment">// 6、查看文件内容： cat default.conf</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="5、负载均衡"><a href="#5、负载均衡" class="headerlink" title="5、负载均衡"></a>5、负载均衡</h3><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// 负载均衡就是为了在大量请求的时候，可以把请求发到不同的服务器，减小压力</span>
+<span class="token comment">// 我们可以代理不同的服务器，然后做负载均衡，设置请求权重</span>
+
+<span class="token comment">//1、关闭8081的nginx服务</span>
+docker ps
+docker stop nginx<span class="token operator">-</span><span class="token number">8081</span>
+docker ps
+
+<span class="token comment">// 2、实现负载均衡的效果，要再添加一个nginx，所以要增加一个文件夹。</span>
+<span class="token comment">// 进入nginx文件夹</span>
+mkdir html3
+cd html3
+
+<span class="token comment">// 3、创建index-test.html文件</span>
+vi index<span class="token operator">-</span>test<span class="token punctuation">.</span>html
+i
+
+<span class="token comment">// 4、复制以下内容</span>
+<span class="token operator">&lt;</span>html<span class="token operator">&gt;</span>
+  <span class="token operator">&lt;</span>body<span class="token operator">&gt;</span>
+    <span class="token operator">&lt;</span>h2<span class="token operator">&gt;</span>my name is other jjwu27<span class="token operator">&lt;</span><span class="token operator">/</span>h2<span class="token operator">&gt;</span>
+  <span class="token operator">&lt;</span><span class="token operator">/</span>body<span class="token operator">&gt;</span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>html<span class="token operator">&gt;</span>
+
+<span class="token comment">// 5、重新开启一个新的映射镜像</span>
+docker run <span class="token operator">-</span>d <span class="token operator">-</span>p <span class="token number">8081</span><span class="token operator">:</span><span class="token number">80</span> <span class="token operator">-</span>v <span class="token operator">/</span>home<span class="token operator">/</span>jjwu27<span class="token operator">-</span>nginx<span class="token operator">/</span>nginx<span class="token operator">/</span>conf<span class="token punctuation">.</span>d<span class="token operator">:</span><span class="token operator">/</span>etc<span class="token operator">/</span>nginx<span class="token operator">/</span>conf<span class="token punctuation">.</span>d  <span class="token operator">-</span>v <span class="token operator">/</span>home<span class="token operator">/</span>jjwu27<span class="token operator">-</span>nginx<span class="token operator">/</span>nginx<span class="token operator">/</span>html3<span class="token operator">:</span><span class="token operator">/</span>usr<span class="token operator">/</span>share<span class="token operator">/</span>nginx<span class="token operator">/</span>html nginx
+
+<span class="token comment">// 6、配置负载均衡，访问demo1时，平均分发到8080端口和8081端口上，</span>
+<span class="token comment">// 即my name is jjwu27和my name is other jjwu27间接出现。</span>
+<span class="token comment">//配置负载均衡，那就是配置在第二次的nginx上，就是反向代理的nginx上，</span>
+<span class="token comment">// 我们去conf.d2文件夹下，修改default.conf文件，如下：</span>
+
+<span class="token comment">// 7、修改刚才那个反向代理的配置文件内容为</span>
+<span class="token comment">// 清空文件内容的指令：echo "" &gt; file.txt</span>
+<span class="token comment">// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!</span>
+<span class="token comment">// 注意：一个字不能少，一个符号不能丢</span>
+upstream group1<span class="token punctuation">{</span>
+    server <span class="token number">175.27</span><span class="token number">.215</span><span class="token number">.117</span><span class="token operator">:</span><span class="token number">8080</span><span class="token punctuation">;</span>
+    server <span class="token number">175.27</span><span class="token number">.215</span><span class="token number">.117</span><span class="token operator">:</span><span class="token number">8081</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+server <span class="token punctuation">{</span>
+    listen       <span class="token number">80</span><span class="token punctuation">;</span>
+    server_name  localhost<span class="token punctuation">;</span>
+    location <span class="token operator">/</span>demo1 <span class="token punctuation">{</span>
+        proxy_pass   http<span class="token operator">:</span><span class="token operator">/</span><span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">group1</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// 这个配置就是说我一个demo1可以访问两个服务器，这个时候我们只要把两个服务器的资源做成一样的</span>
+<span class="token comment">// 这样我们刷新的时候他会按照权重比来给我们非陪请求哪个，反正返回的资源都是一样的，这样可以</span>
+<span class="token comment">// 通过请求不同的服务器缓解压力</span>
+
+<span class="token comment">// 6、然后我们查看一下所有的镜像</span>
+docker ps <span class="token operator">-</span>a
+
+<span class="token comment">// 7、把刚才做代理的那个镜像重新启动一下就行了！！！！！</span>
+
+<span class="token comment">// 8、配置权重：修改default.conf的内容</span>
+upstream group1<span class="token punctuation">{</span>
+    server <span class="token number">175.27</span><span class="token number">.215</span><span class="token number">.117</span><span class="token operator">:</span><span class="token number">8080</span> weight<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span>
+    server <span class="token number">175.27</span><span class="token number">.215</span><span class="token number">.117</span><span class="token operator">:</span><span class="token number">8081</span> weight<span class="token operator">=</span><span class="token number">10</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+server <span class="token punctuation">{</span>
+    listen       <span class="token number">80</span><span class="token punctuation">;</span>
+    server_name  localhost<span class="token punctuation">;</span>
+    location <span class="token operator">/</span>demo1 <span class="token punctuation">{</span>
+        proxy_pass   http<span class="token operator">:</span><span class="token operator">/</span><span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">group1</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// 9、一样的重启一下代理配置的镜像就好了</span>
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="6、本地创建Vue项目并上传到github"><a href="#6、本地创建Vue项目并上传到github" class="headerlink" title="6、本地创建Vue项目并上传到github"></a>6、本地创建Vue项目并上传到github</h3><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// 1、自己创建一个vue项目</span>
+
+<span class="token comment">// 2、在github上创建一个仓库</span>
+
+<span class="token comment">// 3、开始上传</span>
+
+<span class="token comment">// 4、在github上创建一个新的仓库</span>
+<span class="token comment">// 拿到仓库路径地址比如</span>
+<span class="token comment">// https://github.com/colinWu916/test.git</span>
+
+<span class="token comment">// 5、回到项目文件夹</span>
+git init
+git add <span class="token punctuation">.</span>
+git commit <span class="token operator">-</span>m <span class="token string">"test"</span>
+git remote add origin https<span class="token operator">:</span><span class="token operator">/</span><span class="token operator">/</span>github<span class="token punctuation">.</span>com<span class="token operator">/</span>colinWu916<span class="token operator">/</span>test<span class="token punctuation">.</span>git
+git push <span class="token operator">-</span>u origin master
+
+<span class="token comment">// 如果不行多试几次</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="7、服务器安装git拉取代码"><a href="#7、服务器安装git拉取代码" class="headerlink" title="7、服务器安装git拉取代码"></a>7、服务器安装git拉取代码</h3><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// 1、查看是否安装了git</span>
+git verison
+
+<span class="token comment">// 2、安装git</span>
+yum install <span class="token operator">-</span>y git
+
+<span class="token comment">// 3、git配置用户</span>
+git config <span class="token operator">--</span>global user<span class="token punctuation">.</span>name <span class="token string">"jjwu27"</span>
+
+<span class="token comment">// 4、git配置用户邮箱</span>
+git config <span class="token operator">--</span>global user<span class="token punctuation">.</span>email <span class="token string">"colinwu916@gmail.com"</span>
+
+<span class="token comment">// 5、生成公钥和私钥，输入命令后一路回车即可</span>
+ssh<span class="token operator">-</span>keygen <span class="token operator">-</span>t rsa <span class="token operator">-</span><span class="token constant">C</span> <span class="token string">"colinwu916@gmail.com"</span>
+<span class="token comment">// 输出为</span>
+<span class="token comment">// Generating public/private rsa key pair.</span>
+<span class="token comment">// Enter file in which to save the key (/root/.ssh/id_rsa): </span>
+<span class="token comment">// Enter passphrase (empty for no passphrase): </span>
+<span class="token comment">// Enter same passphrase again: </span>
+<span class="token comment">// Your identification has been saved in /root/.ssh/id_rsa.</span>
+<span class="token comment">// Your public key has been saved in /root/.ssh/id_rsa.pub.（注意这句话！！！）</span>
+<span class="token comment">// The key fingerprint is:</span>
+<span class="token comment">// SHA256:LXxBvDaREac/d+5UW7NPBMsbNdqFj2g3AoklBX5DVSk colinwu916@gmail.com</span>
+<span class="token comment">// The key's randomart image is:</span>
+<span class="token comment">// +---[RSA 3072]----+</span>
+<span class="token comment">// |        o+B=o... |</span>
+<span class="token comment">// |       . *++E .. |</span>
+<span class="token comment">// |        o Bo .o.o|</span>
+<span class="token comment">// |       . o+= oo*o|</span>
+<span class="token comment">// |        S.o.*.Oo*|</span>
+<span class="token comment">// |         o . = B*|</span>
+<span class="token comment">// |              .o+|</span>
+<span class="token comment">// |               +.|</span>
+<span class="token comment">// |                o|</span>
+<span class="token comment">// +----[SHA256]-----+</span>
+
+<span class="token comment">// 6、进到这个文件里看到公钥并复制</span>
+cat <span class="token operator">/</span>root<span class="token operator">/</span><span class="token punctuation">.</span>ssh<span class="token operator">/</span>id_rsa<span class="token punctuation">.</span>pub
+
+<span class="token comment">// 7、打开gitHub找到setting，然后点击SSH and GPG keys，点击New SSH key，把复制的公钥放进去，</span>
+<span class="token comment">// 取个名字就好</span>
+<span class="token comment">// 这里解释下为什么要这样，这就等于是给这个仓库加上你的公钥，也就是你能畅通无阻访问这个仓库</span>
+<span class="token comment">// 以及往仓库推送代码的钥匙</span>
+
+<span class="token comment">// 8、新建项目拉去代码</span>
+<span class="token comment">// 跑到根目录，创建一个jjwu27文件夹，然后在jjwu27文件夹里面创建一个jjwu_learning文件夹</span>
+<span class="token comment">// 进入到jjwu_learning文件夹，跑到gitHub的项目仓库，点击Code复制SSH码的地址</span>
+<span class="token comment">// 回到jjwu_learning文件夹输入</span>
+git clone git@github<span class="token punctuation">.</span>com<span class="token operator">:</span>colinWu916<span class="token operator">/</span>jjwu_learning<span class="token punctuation">.</span>git
+<span class="token comment">// 过程中遇到的问题一律输入yes</span>
+<span class="token comment">// 然后你就会发现项目已经拉进来啦</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="8、服务器安装nodejs环境并编译代码"><a href="#8、服务器安装nodejs环境并编译代码" class="headerlink" title="8、服务器安装nodejs环境并编译代码"></a>8、服务器安装nodejs环境并编译代码</h3><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// 1、查看node当前最新版本</span>
+<span class="token comment">// https://nodejs.org/en/download/</span>
+
+<span class="token comment">// 2、安装最新的nodejs</span>
+<span class="token comment">// 先进入到home文件夹下</span>
+wget https<span class="token operator">:</span><span class="token operator">/</span><span class="token operator">/</span>nodejs<span class="token punctuation">.</span>org<span class="token operator">/</span>dist<span class="token operator">/</span>v20<span class="token punctuation">.</span><span class="token number">9.0</span><span class="token operator">/</span>node<span class="token operator">-</span>v20<span class="token punctuation">.</span><span class="token number">9.0</span><span class="token operator">-</span>linux<span class="token operator">-</span>x64<span class="token punctuation">.</span>tar<span class="token punctuation">.</span>xz
+
+<span class="token comment">// 3、解压压缩包</span>
+tar <span class="token operator">-</span>xvf node<span class="token operator">-</span>v20<span class="token punctuation">.</span><span class="token number">9.0</span><span class="token operator">-</span>linux<span class="token operator">-</span>x64<span class="token punctuation">.</span>tar<span class="token punctuation">.</span>xz
+<span class="token comment">// 在当前文件夹下ls -l查看所有文件，输出为</span>
+drwxr<span class="token operator">-</span>xr<span class="token operator">-</span>x <span class="token number">3</span> root root     <span class="token number">4096</span> Nov <span class="token number">11</span> <span class="token number">11</span><span class="token operator">:</span><span class="token number">00</span> jjwu27<span class="token operator">-</span>nginx
+drwxr<span class="token operator">-</span>xr<span class="token operator">-</span>x <span class="token number">6</span> <span class="token number">1000</span> <span class="token number">1000</span>     <span class="token number">4096</span> Oct <span class="token number">24</span> <span class="token number">10</span><span class="token operator">:</span><span class="token number">51</span> node<span class="token operator">-</span>v20<span class="token punctuation">.</span><span class="token number">9.0</span><span class="token operator">-</span>linux<span class="token operator">-</span>x64
+<span class="token operator">-</span>rw<span class="token operator">-</span>r<span class="token operator">--</span>r<span class="token operator">--</span> <span class="token number">1</span> root root <span class="token number">25205000</span> Oct <span class="token number">24</span> <span class="token number">10</span><span class="token operator">:</span><span class="token number">53</span> node<span class="token operator">-</span>v20<span class="token punctuation">.</span><span class="token number">9.0</span><span class="token operator">-</span>linux<span class="token operator">-</span>x64<span class="token punctuation">.</span>tar<span class="token punctuation">.</span>xz
+<span class="token comment">// 删除压缩包</span>
+rm <span class="token operator">-</span>rf node<span class="token operator">-</span>v20<span class="token punctuation">.</span><span class="token number">9.0</span><span class="token operator">-</span>linux<span class="token operator">-</span>x64<span class="token punctuation">.</span>tar<span class="token punctuation">.</span>xz
+<span class="token comment">// 进入到node-v20.9.0-linux-x64文件夹，找到bin文件夹，进入bin文件夹</span>
+
+<span class="token comment">// 4、部署bin文件</span>
+<span class="token comment">// 先确认你nodejs的路径，我这里的路径为/home/node-v20.9.0-linux-x64/bin</span>
+<span class="token comment">// ls -l我们可以查看到里面有node文件和npm文件，我们把这两个文件做个映射</span>
+<span class="token comment">// 推到home文件夹并执行</span>
+ln <span class="token operator">-</span>s <span class="token operator">/</span>home<span class="token operator">/</span>node<span class="token operator">-</span>v20<span class="token punctuation">.</span><span class="token number">9.0</span><span class="token operator">-</span>linux<span class="token operator">-</span>x64<span class="token operator">/</span>bin<span class="token operator">/</span>node <span class="token operator">/</span>usr<span class="token operator">/</span>bin<span class="token operator">/</span>node
+ln <span class="token operator">-</span>s <span class="token operator">/</span>home<span class="token operator">/</span>node<span class="token operator">-</span>v20<span class="token punctuation">.</span><span class="token number">9.0</span><span class="token operator">-</span>linux<span class="token operator">-</span>x64<span class="token operator">/</span>bin<span class="token operator">/</span>npm <span class="token operator">/</span>usr<span class="token operator">/</span>bin<span class="token operator">/</span>npm
+<span class="token comment">// 注意ln指令用于创建关联（类似与Windows的快捷方式）必须给全路径，否则可能关联错误。</span>
+
+<span class="token comment">// 5、查看是否安装成功</span>
+node <span class="token operator">-</span>v
+npm <span class="token operator">-</span>v
+
+<span class="token comment">// 6、安装yarn</span>
+npm install yarn <span class="token operator">-</span>g
+<span class="token comment">// 你会发现bin文件夹下多了一个yarn文件，开始映射</span>
+ln <span class="token operator">-</span>s <span class="token operator">/</span>home<span class="token operator">/</span>node<span class="token operator">-</span>v20<span class="token punctuation">.</span><span class="token number">9.0</span><span class="token operator">-</span>linux<span class="token operator">-</span>x64<span class="token operator">/</span>bin<span class="token operator">/</span>yarn <span class="token operator">/</span>usr<span class="token operator">/</span>bin<span class="token operator">/</span>yarn
+<span class="token comment">// 如果不做映射的话我们用yarn命令只能进入到yarn文件夹里用，配置后可以全局用</span>
+<span class="token comment">// 查看yarn的版本</span>
+yarn <span class="token operator">-</span>v
+
+<span class="token comment">// 7、安装项目依赖</span>
+<span class="token comment">// 进入到文件夹：cd /jjwu27/jjwu_learning/jjwu_learning</span>
+<span class="token comment">// 安装依赖：yarn</span>
+<span class="token comment">// 安装完之后我们发现会多一个node_modules文件夹</span>
+
+<span class="token comment">// 8、启动项目跑一下试试</span>
+yarn serve
+<span class="token comment">// 报错了，提示说没有装less,我们装一下less</span>
+yarn add less
+<span class="token comment">// 再启动，成功啦！！！！！！！！！！！！！！！</span>
+<span class="token comment">// App running at:</span>
+<span class="token comment">//   - Local:   http://localhost:8082/ </span>
+<span class="token comment">//   - Network: http://10.206.0.11:8082/</span>
+
+<span class="token comment">//   Note that the development build is not optimized.</span>
+<span class="token comment">//   To create a production build, run yarn build.</span>
+<span class="token comment">// 注意是8082端口哦，因为8080和8081刚才都被我们占用了呀</span>
+
+<span class="token comment">// 9、打包项目</span>
+yarn build
+<span class="token comment">// 检查打包后的静态文件</span>
+ls <span class="token operator">-</span>l
+<span class="token comment">// 发现多了一个dist文件夹，可以进去看下打包好的文件</span>
+cd dist
+ls <span class="token operator">-</span>l<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="9、整理一下"><a href="#9、整理一下" class="headerlink" title="9、整理一下"></a>9、整理一下</h3><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token number">1</span>、我的vue项目在哪个文件夹
+<span class="token operator">/</span>jjwu27<span class="token operator">/</span>jjwu_learning<span class="token operator">/</span>jjwu_learning
+
+<span class="token number">2</span>、我的nginx在哪个文件夹
+<span class="token operator">/</span>home<span class="token operator">/</span>jjwu27<span class="token operator">-</span>nginx
+
+<span class="token number">3</span>、我的ndoejs在哪个文件夹下
+<span class="token operator">/</span>home<span class="token operator">/</span>node<span class="token operator">-</span>v20<span class="token punctuation">.</span><span class="token number">9.0</span><span class="token operator">-</span>linux<span class="token operator">-</span>x64<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="10、部署静态文件"><a href="#10、部署静态文件" class="headerlink" title="10、部署静态文件"></a>10、部署静态文件</h3><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// 1、先把原来启动的8080端口的docker容器停止掉</span>
+docker ps
+docker stop <span class="token operator">&lt;</span>id<span class="token operator">&gt;</span>
+
+<span class="token comment">// 2、重新运行docker的nginx容器</span>
+<span class="token comment">// 警告！此时你一定要在项目的根目录中哦，不然的话也可以根据你目前的目录简单调整启动命令。</span>
+<span class="token comment">// 注意是跑到项目的根目录哈，项目的根目录也就是: /jjwu27/jjwu_learning/jjwu_learning</span>
+<span class="token comment">// 执行命令</span>
+docker run <span class="token operator">-</span>d <span class="token operator">-</span>p <span class="token number">8080</span><span class="token operator">:</span><span class="token number">80</span> <span class="token operator">-</span>v $<span class="token constant">PWD</span><span class="token operator">/</span>dist<span class="token operator">:</span><span class="token operator">/</span>usr<span class="token operator">/</span>share<span class="token operator">/</span>nginx<span class="token operator">/</span>html nginx
+<span class="token comment">// $PWD是指的当前路径，上面的警告的意思是启动命令已经规定了是当前项目根目录下的dist</span>
+<span class="token comment">// 文件夹($PWD/dist)，如果不在项目根目录，会出现一些问题。</span>
+
+<span class="token comment">// 3、插入一个语法：echo是输出命令</span>
+echo $<span class="token constant">PWD</span> <span class="token comment">// 查看当前完整路径</span>
+
+<span class="token comment">// 4、镜像启动后，你会发现卧槽可以了！！！！！！！！！！</span>
+<span class="token comment">// 去8080端口看我靠真的出来了</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<h3 id="11、增加前端启动命令，简化流程"><a href="#11、增加前端启动命令，简化流程" class="headerlink" title="11、增加前端启动命令，简化流程"></a>11、增加前端启动命令，简化流程</h3><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// 1、修改本地vue文件，commit到gitHub上</span>
+<span class="token comment">// 这里在git push的时候遇到了几个报错</span>
+<span class="token comment">// Failed to connect to github.com port 443: Timed out</span>
+<span class="token comment">// OpenSSL SSL_read: Connection was reset, errno 10054</span>
+<span class="token comment">// 换换VPN的代理节点多试试git push就好</span>
+
+<span class="token comment">// 2、回到服务器，进入到项目的根目录</span>
+git pull
+<span class="token comment">// 拉完之后重新build</span>
+yarn build
+
+<span class="token comment">// 3、总结一下改东西，我们需要不断的重复刚才的步骤</span>
+<span class="token comment">// 并且在实际项目中还需要插入其他的脚本指令</span>
+
+<span class="token comment">// 4、那怎么更好的简化一点点呢</span>
+<span class="token comment">// 在项目的根目录下加一个文件：start.sh</span>
+<span class="token comment">// start.sh是linux系统下的脚本文件</span>
+<span class="token comment">// 文件下内容为</span>
+git pull
+yarn <span class="token operator">--</span>registry<span class="token operator">=</span>https<span class="token operator">:</span><span class="token operator">/</span><span class="token operator">/</span>registry<span class="token punctuation">.</span>npm<span class="token punctuation">.</span>taobao<span class="token punctuation">.</span>org<span class="token operator">/</span> <span class="token operator">&amp;&amp;</span> yarn build
+#删除容器
+docker rm <span class="token operator">-</span>f jjwu27_1 <span class="token operator">&amp;</span><span class="token operator">&gt;</span> <span class="token operator">/</span>dev<span class="token operator">/</span><span class="token keyword">null</span>
+#启动容器
+docker run <span class="token operator">-</span>d <span class="token operator">--</span>restart<span class="token operator">=</span>on<span class="token operator">-</span>failure<span class="token operator">:</span><span class="token number">5</span>\
+    <span class="token operator">-</span>p <span class="token number">8080</span><span class="token operator">:</span><span class="token number">80</span> \
+    <span class="token operator">-</span>v $<span class="token constant">PWD</span><span class="token operator">/</span>dist<span class="token operator">:</span><span class="token operator">/</span>usr<span class="token operator">/</span>share<span class="token operator">/</span>nginx<span class="token operator">/</span>html \
+    <span class="token operator">--</span>name jjwu27_1 nginx
+
+<span class="token comment">// 5、提交到gitHub上</span>
+git add <span class="token punctuation">.</span>
+git commit <span class="token operator">-</span>m <span class="token string">'修改脚本文件'</span>
+git push
+
+<span class="token comment">// 6、回到服务器项目根目录文件夹</span>
+git pull 
+<span class="token comment">// 发现多了start.sh文件</span>
+<span class="token comment">// 我们把之前的8080端口给它关掉</span>
+docker ps
+docker stop <span class="token operator">&lt;</span>id<span class="token operator">&gt;</span>
+<span class="token comment">// 然后我们运行脚本文件即可</span>
+sh start<span class="token punctuation">.</span>sh
+<span class="token comment">// 这里你通过查看输出记录就知道它在按照你的</span>
+<span class="token comment">// 脚本文件一步一步的往下执行</span>
+
+<span class="token comment">// 7、我们去看下网址发现项目已经启动了</span>
+
+<span class="token comment">// 8、这个时候我想改个东西怎么搞</span>
+<span class="token comment">// 直接改文件</span>
+<span class="token comment">// 改完后提交</span>
+git add <span class="token punctuation">.</span>
+git commit <span class="token operator">-</span>m <span class="token string">'需求1'</span>
+git push
+
+<span class="token comment">// 9、回到服务器只执行</span>
+sh start<span class="token punctuation">.</span>sh
+<span class="token comment">// 我们回到项目地址发现项目更新了</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="12、Nginx反向代理丢失js、css问题"><a href="#12、Nginx反向代理丢失js、css问题" class="headerlink" title="12、Nginx反向代理丢失js、css问题"></a>12、Nginx反向代理丢失js、css问题</h3><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// 首先注意前提！！！！！！！！！！！！！！！！！！</span>
+<span class="token comment">// 是反向代理！！！！！！！！！！！！！！！</span>
+
+<span class="token comment">// 1、操作步骤</span>
+<span class="token comment">// 回到nginx配置目录</span>
+<span class="token comment">// 进入到之前做反向代理的文件里面（conf.d2/default.conf）</span>
+vi <span class="token keyword">default</span><span class="token punctuation">.</span>conf
+<span class="token comment">// 复制以下内容，其实我们就是关了负载均衡</span>
+upstream group1<span class="token punctuation">{</span>
+    server <span class="token number">175.27</span><span class="token number">.215</span><span class="token number">.117</span><span class="token operator">:</span><span class="token number">8080</span><span class="token punctuation">;</span>
+    #server <span class="token number">175.27</span><span class="token number">.215</span><span class="token number">.117</span><span class="token operator">:</span><span class="token number">8081</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+server <span class="token punctuation">{</span>
+    listen       <span class="token number">80</span><span class="token punctuation">;</span>
+    server_name  localhost<span class="token punctuation">;</span>
+    location <span class="token operator">/</span>demo1 <span class="token punctuation">{</span>
+        proxy_pass   http<span class="token operator">:</span><span class="token operator">/</span><span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">group1</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span class="token comment">// 修改好后，我们重启一下反向代理的镜像</span>
+docker restart <span class="token operator">&lt;</span>id<span class="token operator">&gt;</span>
+<span class="token comment">// 然后我们发现demo这个反向代理网址可以访问了，之前是不行的，之前访问的时候还是以前的页面</span>
+<span class="token comment">// 但是虽然可以访问了，但是我们发现接口都报错了</span>
+<span class="token comment">// 查看路径都是</span>
+<span class="token constant">GET</span> <span class="token literal-property property">http</span><span class="token operator">:</span><span class="token operator">/</span><span class="token operator">/</span><span class="token number">175.27</span><span class="token number">.215</span><span class="token number">.117</span><span class="token operator">/</span>js<span class="token operator">/</span>app<span class="token punctuation">.</span>131a064a<span class="token punctuation">.</span>js net<span class="token operator">:</span><span class="token operator">:</span><span class="token constant">ERR_ABORTED</span> <span class="token number">404</span> <span class="token punctuation">(</span>Not Found<span class="token punctuation">)</span>
+<span class="token constant">GET</span> <span class="token literal-property property">http</span><span class="token operator">:</span><span class="token operator">/</span><span class="token operator">/</span><span class="token number">175.27</span><span class="token number">.215</span><span class="token number">.117</span><span class="token operator">/</span>css<span class="token operator">/</span>chunk<span class="token operator">-</span>vendors<span class="token punctuation">.</span>10dd4e95<span class="token punctuation">.</span>css net<span class="token operator">:</span><span class="token operator">:</span><span class="token constant">ERR_ABORTED</span> <span class="token number">404</span> <span class="token punctuation">(</span>Not Found<span class="token punctuation">)</span>
+<span class="token constant">GET</span> <span class="token literal-property property">http</span><span class="token operator">:</span><span class="token operator">/</span><span class="token operator">/</span><span class="token number">175.27</span><span class="token number">.215</span><span class="token number">.117</span><span class="token operator">/</span>js<span class="token operator">/</span>chunk<span class="token operator">-</span>vendors<span class="token punctuation">.</span>98e38eb9<span class="token punctuation">.</span>js net<span class="token operator">:</span><span class="token operator">:</span><span class="token constant">ERR_ABORTED</span> <span class="token number">404</span> <span class="token punctuation">(</span>Not Found<span class="token punctuation">)</span>
+<span class="token constant">GET</span> <span class="token literal-property property">http</span><span class="token operator">:</span><span class="token operator">/</span><span class="token operator">/</span><span class="token number">175.27</span><span class="token number">.215</span><span class="token number">.117</span><span class="token operator">/</span>css<span class="token operator">/</span>app<span class="token punctuation">.</span>089dc55a<span class="token punctuation">.</span>css net<span class="token operator">:</span><span class="token operator">:</span><span class="token constant">ERR_ABORTED</span> <span class="token number">404</span> <span class="token punctuation">(</span>Not Found<span class="token punctuation">)</span>
+
+<span class="token comment">// 2、资源丢失是因为接口请求错误了</span>
+<span class="token comment">// 我们看下接口发现请求js或者css资源的地址都是从根目录下去找的，这是有问题的</span>
+
+<span class="token comment">// 3、问题是出在vue打包的时候</span>
+<span class="token comment">// 我们在本地打包看一下啊</span>
+<span class="token comment">// 打包完之后我们进入dist文件夹下的index.html，他是这样的</span>
+<span class="token operator">&lt;</span><span class="token operator">!</span>doctype html<span class="token operator">&gt;</span>
+<span class="token operator">&lt;</span>html lang<span class="token operator">=</span><span class="token string">""</span><span class="token operator">&gt;</span>
+
+<span class="token operator">&lt;</span>head<span class="token operator">&gt;</span>
+  <span class="token operator">&lt;</span>meta charset<span class="token operator">=</span><span class="token string">"utf-8"</span><span class="token operator">&gt;</span>
+  <span class="token operator">&lt;</span>meta http<span class="token operator">-</span>equiv<span class="token operator">=</span><span class="token string">"X-UA-Compatible"</span> content<span class="token operator">=</span><span class="token string">"IE=edge"</span><span class="token operator">&gt;</span>
+  <span class="token operator">&lt;</span>meta name<span class="token operator">=</span><span class="token string">"viewport"</span> content<span class="token operator">=</span><span class="token string">"width=device-width,initial-scale=1"</span><span class="token operator">&gt;</span>
+  <span class="token operator">&lt;</span>link rel<span class="token operator">=</span><span class="token string">"icon"</span> href<span class="token operator">=</span><span class="token string">"/favicon.ico"</span><span class="token operator">&gt;</span>
+  <span class="token operator">&lt;</span>title<span class="token operator">&gt;</span>jjwu27_1<span class="token operator">&lt;</span><span class="token operator">/</span>title<span class="token operator">&gt;</span>
+  <span class="token comment">// 下面的这种路径都叫根目录直接 / 加 路径</span>
+  <span class="token operator">&lt;</span>script defer<span class="token operator">=</span><span class="token string">"defer"</span> src<span class="token operator">=</span><span class="token string">"/js/chunk-vendors.2abaa773.js"</span><span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>script<span class="token operator">&gt;</span>
+  <span class="token operator">&lt;</span>script defer<span class="token operator">=</span><span class="token string">"defer"</span> src<span class="token operator">=</span><span class="token string">"/js/app.afb755c7.js"</span><span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>script<span class="token operator">&gt;</span>
+  <span class="token operator">&lt;</span>link href<span class="token operator">=</span><span class="token string">"/css/chunk-vendors.10dd4e95.css"</span> rel<span class="token operator">=</span><span class="token string">"stylesheet"</span><span class="token operator">&gt;</span>
+  <span class="token operator">&lt;</span>link href<span class="token operator">=</span><span class="token string">"/css/app.2b25d90a.css"</span> rel<span class="token operator">=</span><span class="token string">"stylesheet"</span><span class="token operator">&gt;</span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>head<span class="token operator">&gt;</span>
+
+<span class="token operator">&lt;</span>body<span class="token operator">&gt;</span>
+  <span class="token operator">&lt;</span>noscript<span class="token operator">&gt;</span>
+    <span class="token operator">&lt;</span>strong<span class="token operator">&gt;</span>We<span class="token string">'re sorry but jjwu27_1 doesn'</span>t work properly without JavaScript enabled<span class="token punctuation">.</span> Please enable it to <span class="token keyword">continue</span><span class="token punctuation">.</span><span class="token operator">&lt;</span><span class="token operator">/</span>strong<span class="token operator">&gt;</span>
+  <span class="token operator">&lt;</span><span class="token operator">/</span>noscript<span class="token operator">&gt;</span>
+  <span class="token operator">&lt;</span>div id<span class="token operator">=</span><span class="token string">"app"</span><span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">&gt;</span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>body<span class="token operator">&gt;</span>
+
+<span class="token operator">&lt;</span><span class="token operator">/</span>html<span class="token operator">&gt;</span>
+
+<span class="token comment">// 我想你应该发现了，我们访问代理网址的时候，资源路径是根目录，也就是我们本地的目录</span>
+<span class="token comment">// 但其实我们应该去打包好后的本目录下拿资源</span>
+<span class="token comment">// 怎么改呢，进入项目的vue.config.js文件夹</span>
+<span class="token keyword">const</span> <span class="token punctuation">{</span> defineConfig <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'@vue/cli-service'</span><span class="token punctuation">)</span>
+module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token function">defineConfig</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  <span class="token literal-property property">transpileDependencies</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+  <span class="token literal-property property">lintOnSave</span><span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+  <span class="token literal-property property">publicPath</span><span class="token operator">:</span> <span class="token string">'./'</span>  <span class="token comment">// 加一行这个就可以了  =&gt;&gt;&gt;&gt;  ./代表本目录</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+<span class="token comment">// 4、重新打包，我们会发现，index.html文件里面的内容路径都变成了   =&gt;&gt;&gt;&gt;&gt; ./</span>
+<span class="token comment">// 不知道是不是版本问题，我发现我这里和和视频不一样</span>
+
+<span class="token comment">// 5、我们把dist文件夹删除，只保留vue.config.js的修改然后提交到github</span>
+
+<span class="token comment">// 6、回到服务器项目文件夹</span>
+sh start<span class="token punctuation">.</span>sh
+<span class="token comment">// 你会发现好啦！！！！！！！！！！！！！</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">吴俊杰</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="http://example.com/2024/12/03/fu-wu-bu-shu/1-da-jian-fu-wu-qi-bing-bu-shu-xiang-mu/">http://example.com/2024/12/03/fu-wu-bu-shu/1-da-jian-fu-wu-qi-bing-bu-shu-xiang-mu/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">吴俊杰</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/Nginx/">
+                                    <span class="chip bg-color">Nginx</span>
+                                </a>
+                            
+                                <a href="/tags/%E9%83%A8%E7%BD%B2/">
+                                    <span class="chip bg-color">部署</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2024/12/03/fu-wu-bu-shu/2-nginx-de-https-pei-zhi-jie-jue-fang-an/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="二、Nginx的https配置解决方案">
+                        
+                        <span class="card-title">二、Nginx的https配置解决方案</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            不会后端的前端不是一个好前端，凡是慢慢来，慢慢了解介于前后端中间的地界，再慢慢转向学习后端，你的最低目标是全栈啊......
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2024-12-03
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E9%83%A8%E7%BD%B2%E6%9C%8D%E5%8A%A1/" class="post-category">
+                                    部署服务
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Nginx/">
+                        <span class="chip bg-color">Nginx</span>
+                    </a>
+                    
+                    <a href="/tags/%E9%83%A8%E7%BD%B2/">
+                        <span class="chip bg-color">部署</span>
+                    </a>
+                    
+                    <a href="/tags/https/">
+                        <span class="chip bg-color">https</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2024/12/03/es6/es6-7-xiang-qing-pian-wei-da-de-promsie/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="七、ES6+详情篇—伟大的Promise！！">
+                        
+                        <span class="card-title">七、ES6+详情篇—伟大的Promise！！</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            你一定要明白Promise有多多多多多多多多多多多多多多多多多多多多多多多多多多多多多多多多多多多多多多多多多多多多伟大......
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2024-12-03
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/ES6/" class="post-category">
+                                    ES6+
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/ES6/">
+                        <span class="chip bg-color">ES6+</span>
+                    </a>
+                    
+                    <a href="/tags/promsie/">
+                        <span class="chip bg-color">promsie</span>
+                    </a>
+                    
+                    <a href="/tags/await/">
+                        <span class="chip bg-color">await</span>
+                    </a>
+                    
+                    <a href="/tags/async/">
+                        <span class="chip bg-color">async</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2024</span>
+            
+            <a href="/about" target="_blank">吴俊杰</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">ColinWu</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+                <span id="translate">|&nbsp;繁/简：</span><a id="translateLink" href="javascript:translatePage();">繁</a>
+            
+            <br>
+            
+                &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                        class="white-color">243.3k</span>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/colinWu916" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:colinwu916@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=2232459332" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 2232459332" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+        <script type="text/javascript" src="/js/tw_cn.js"></script>
+        <script type="text/javascript">
+          var defaultEncoding = 2; //网站编写字体是否繁体，1-繁体，2-简体
+          var translateDelay = 0; //延迟时间,若不在前, 要设定延迟翻译时间, 如100表示100ms,默认为0
+          var cookieDomain = "http://example.com"; //Cookie地址, 一定要设定, 通常为你的网址
+          var msgToTraditionalChinese = "繁"; //此处可以更改为你想要显示的文字
+          var msgToSimplifiedChinese = "简"; //同上，但两处均不建议更改
+          var translateButtonId = "translateLink"; //默认互换id
+          translateInitilization();
+        </script>
+    
+    
+    
+
+    <!-- 雪花特效 -->
+     
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/snow.js"><\/script>');
+            }
+        </script>
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

@@ -1,0 +1,1401 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="Nginx">
+    <meta name="description" content="我一直认为nginx是介于前端后后端的中间产物，不只是后端需要会配置，前端也需要学会怎么使用，不要自己骗自己推卸责任，加油......">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>四、必备Nginx知识 | ColinWu</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+        <link rel="stylesheet" type="text/css" href="/css/reward.css">
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 7.3.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="alternate" href="/atom.xml" title="ColinWu" type="application/atom+xml">
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">ColinWu</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">ColinWu</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/colinWu916/colinWu916.github.io" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/colinWu916/colinWu916.github.io" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/19.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">四、必备Nginx知识</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/Nginx/">
+                                <span class="chip bg-color">Nginx</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E4%BC%98%E7%A7%80%E7%9A%84%E6%8E%A8%E6%96%87/" class="post-category">
+                                优秀的推文
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2024-12-12
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2024-12-12
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    3k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    12 分
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="一、了解一点简单的Nginx知识"><a href="#一、了解一点简单的Nginx知识" class="headerlink" title="一、了解一点简单的Nginx知识"></a><strong><font style="color:rgb(0, 0, 0);">一、了解一点简单的Nginx知识</font></strong></h2><p><font style="color:rgb(0, 0, 0);">本节内容作为基础知识，如果熟悉Nginx可以略过，如果不熟悉可以实际操作一下。</font></p>
+<p><font style="color:rgb(0, 0, 0);">现在服务器安装Nginx很简单，一般只需要两行命令即可，安装完成后，启动服务。</font></p>
+<pre class="line-numbers language-powershell" data-language="powershell"><code class="language-powershell"># 安装nginx
+yum install -y nginx
+# 启动nginx
+systemctl start nginx
+# 查看nginx运行状态
+systemctl status nginx<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><img src="/images/et/4_1.png"></p>
+<p><font style="color:rgb(0, 0, 0);">当我们看到下图，说明你的Nginx运行正常，此时Nginx会启动服务，默认80端口。此时如果我们的服务器外网防火墙</font><font style="color:rgb(30, 107, 184);">80</font><font style="color:rgb(0, 0, 0);">端口开启，那么访问外网IP，就能看到Nginx启动的服务</font></p>
+<p><img src="/images/et/4_2.png"></p>
+<p><font style="color:rgb(0, 0, 0);">Nginx的配置文件，一般位于<code>/etc/nginx</code><font style="color:rgb(0, 0, 0);">目录下，具体内容如下：</font></font></p><font style="color:rgb(0, 0, 0);">
+<p><img src="/images/et/4_3.png"></p>
+<p><font style="color:rgb(0, 0, 0);">我们基本只需要关注文件<code>nginx.conf</code><font style="color:rgb(0, 0, 0);">和<code>conf.d</code><font style="color:rgb(0, 0, 0);">目录，下面是一份<code>nginx.conf</code><font style="color:rgb(0, 0, 0);">配置文件，不懂也不要怕，基本都不需要改动，默认80服务已经开启了。</font></font></font></font></p><font style="color:rgb(0, 0, 0);"><font style="color:rgb(0, 0, 0);">
+<pre class="line-numbers language-nginx" data-language="nginx"><code class="language-nginx">user nginx; # nginx进行运行的用户
+error_log /var/log/nginx/error.log; # 错误日志
+
+http {
+  log_format main ...; # nginx日志格式
+  access_log /var/log/nginx/access.log main; # 日志位置
+
+  # 引入的nginx配置文件，可以将server放在该目录下，方便管理
+  include /etc/nginx/conf.d/*.conf; 
+    # 一个nginx服务一个server
+    server {
+    listen 80; # 服务启动的端口
+    server_name _; # 服务域名或IP
+    root /usr/share/nginx/html; # 服务指向的文件地址
+
+    error_page 404 /404.html; # 找不到资源重定向到404页面
+    location = /40x.html {};
+
+    error_page 500 502 503 504 /50x.html; # 系统错误重定向50x页面
+    location = /50x.html {};
+}
+    # server {
+    #    listen 443; # 支持https协议
+    #    server_name _;
+    #    root /usr/share/nginx/html;
+    #    ...
+    # }
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><font style="color:rgb(0, 0, 0);">我们可以看到该文件分成了多层</font></p>
+<ul>
+<li><font style="color:rgb(1, 1, 1);">第一层：user、error_log、http</font></li>
+<li><font style="color:rgb(1, 1, 1);">第二层：log_format、access_log、include、server</font></li>
+</ul>
+<p><font style="color:rgb(0, 0, 0);">在http下可以有多个<code>Server</code><font style="color:rgb(0, 0, 0);">，启动多个服务，但如果都写在一个文件里面，文件就越来越大了，那么为了便于管理多个服务，我们要对<code>nginx.conf</code><font style="color:rgb(0, 0, 0);">进行拆分。</font></font></font></p><font style="color:rgb(0, 0, 0);"><font style="color:rgb(0, 0, 0);">
+<p><font style="color:rgb(0, 0, 0);">conf.d目录下一般是空的，我们新建文件 web.conf或者任意命名的以.conf结尾的文件即可被Nginx使用，内容为：</font></p>
+<pre class="line-numbers language-nginx" data-language="nginx"><code class="language-nginx">server {
+  listen 80; 
+  server_name _; 
+  root /usr/share/nginx/html; 
+
+  error_page 404 /404.html; 
+  location = /40x.html {};
+
+  error_page 500 502 503 504 /50x.html; 
+  location = /50x.html {};
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><font style="color:rgb(0, 0, 0);">由于这里使用了80端口，之前nginx.conf文件server中listen为80的可以删除了。</font></p>
+<p><font style="color:rgb(0, 0, 0);">此时nginx.conf中的文件内容为：</font></p>
+<pre class="line-numbers language-nginx" data-language="nginx"><code class="language-nginx">user nginx; # nginx进行运行的用户
+error_log /var/log/nginx/error.log; # 错误日志
+
+http {
+  log_format main ...; # nginx日志格式
+  access_log /var/log/nginx/access.log main; # 日志位置
+
+  # 引入的nginx配置文件，可以将server放在该目录下，方便管理
+  include /etc/nginx/conf.d/*.conf; 
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><code>include /etc/nginx/conf.d/*.conf; </code><font style="color:rgb(0, 0, 0);">我们看到这一行语句发现，include帮助我们引用conf.d下以.conf结尾的配置文件。</font></p>
+<p><font style="color:rgb(0, 0, 0);">完成后执行nginx指令</font></p>
+<pre class="line-numbers language-nginx" data-language="nginx"><code class="language-nginx"># 检查nginx配置文件是否正确，如果错误会提示具体的错误信息
+nginx -t
+# 重新启动nginx服务
+nginx -s reload<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><img src="/images/et/4_4.png"></p>
+<p><font style="color:rgb(0, 0, 0);">观察日志，此时发现Nginx就重新启动了，读取的是新的配置文件。</font></p>
+<p><strong><font style="color:rgb(0, 0, 0);">其他操作nginx的指令</font></strong></p>
+<pre class="line-numbers language-powershell" data-language="powershell"><code class="language-powershell">nginx -s stop
+nginx -s start<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<h2 id="二、启动一个简单的Nginx服务"><a href="#二、启动一个简单的Nginx服务" class="headerlink" title="二、启动一个简单的Nginx服务"></a><strong><font style="color:rgb(0, 0, 0);">二、启动一个简单的Nginx服务</font></strong></h2><ul>
+<li><font style="color:rgb(1, 1, 1);">一台服务器或PC，安装并启动Nginx服务</font></li>
+<li><code>/data/web</code><font style="color:rgb(1, 1, 1);">两个html文件<code>index.html</code><font style="color:rgb(1, 1, 1);">, <code>about.html</code></font></font></li><font style="color:rgb(1, 1, 1);"><font style="color:rgb(1, 1, 1);">
+</font></font></ul><font style="color:rgb(1, 1, 1);"><font style="color:rgb(1, 1, 1);">
+<p><font style="color:rgb(0, 0, 0);">1、<code>index.html</code><font style="color:rgb(0, 0, 0);">或<code>about.html</code></font></font></p><font style="color:rgb(0, 0, 0);"><font style="color:rgb(0, 0, 0);">
+<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token doctype"><span class="token punctuation">&lt;!</span><span class="token doctype-tag">DOCTYPE</span> <span class="token name">html</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">charset</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>utf-8<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>title</span><span class="token punctuation">&gt;</span></span>nginx<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>title</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">&gt;</span></span>
+    通过nginx部署的第一个服务
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">&gt;</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><font style="color:rgb(0, 0, 0);">2、修改<code>/etc/nginx/conf.d/web.conf</code></font></p><font style="color:rgb(0, 0, 0);">
+<pre class="line-numbers language-nginx" data-language="nginx"><code class="language-nginx">server { 
+  listen 80; 
+  server_name localhost; 
+  root /data/web; 
+  index index.html; 
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><font style="color:rgb(0, 0, 0);">执行<code>nginx -t</code><font style="color:rgb(0, 0, 0);">确认配置文件修改没问题，再执行<code>nginx -s reload</code><font style="color:rgb(0, 0, 0);">重启Nginx，此时我们访问外网IP（默认80端口，下面默认都是访问80端口），可以看到</font></font></font></p><font style="color:rgb(0, 0, 0);"><font style="color:rgb(0, 0, 0);">
+<p><img src="/images/et/4_5.png"></p>
+<font style="color:rgb(136, 136, 136);">  
+</font>
+
+<p><font style="color:rgb(0, 0, 0);">这样我们的静态资源文件就部署好了，通过</font>url<font style="color:rgb(0, 0, 0);">访问资源：</font></p>
+<ul>
+<li><code>http://xxxx/index.html</code></li>
+<li><code>http://xxxx/about.html</code></li>
+</ul>
+<h2 id="三、部署单页面应用"><a href="#三、部署单页面应用" class="headerlink" title="三、部署单页面应用"></a><strong><font style="color:rgb(0, 0, 0);">三、部署单页面应用</font></strong></h2><p><font style="color:rgb(0, 0, 0);">我们快速创建一个CRA单页面应用，修改App.js文件，这里使用<code>react-router-dom@6</code></font></p><font style="color:rgb(0, 0, 0);">
+<h3 id="1、Hash模式"><a href="#1、Hash模式" class="headerlink" title="1、Hash模式"></a><strong><font style="color:rgb(0, 0, 0);">1、Hash模式</font></strong></h3><pre class="line-numbers language-jsx" data-language="jsx"><code class="language-jsx">import { HashRouter, Routes, Route, Link } from "react-router-dom";
+import './App.css';
+
+function App() {
+  return (
+    &lt;div className="App"&gt;
+      &lt;HashRouter basename="/"&gt;
+        &lt;div style={{marginBottom: 20}}&gt;
+          &lt;Link style={{marginRight: 20}} to="/"&gt;Home&lt;/Link&gt;
+          &lt;Link to="/about"&gt;About&lt;/Link&gt;
+        &lt;/div&gt;
+        &lt;Routes&gt;
+          &lt;Route path="/" element={&lt;div&gt;home&lt;/div&gt;}&gt;&lt;/Route&gt;
+          &lt;Route path="/about" element={&lt;div&gt;about&lt;/div&gt;} /&gt;
+        &lt;/Routes&gt;
+      &lt;/HashRouter&gt;
+    &lt;/div&gt;
+  );
+}
+
+export default App;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><font style="color:rgb(0, 0, 0);">我们执行<code>yarn build</code><font style="color:rgb(0, 0, 0);">，然后将<code>build</code><font style="color:rgb(0, 0, 0);">目录下的文件迁移到<code>/data/web</code><font style="color:rgb(0, 0, 0);">下，再访问服务器IP，发现访问正常，路由切换也没有问题，即部署成功。</font></font></font></font></p><font style="color:rgb(0, 0, 0);"><font style="color:rgb(0, 0, 0);">
+<p><img src="/images/et/4_6.png"></p>
+<font style="color:rgb(136, 136, 136);">  
+</font>
+
+<h3 id="2、History模式"><a href="#2、History模式" class="headerlink" title="2、History模式"></a><strong><font style="color:rgb(0, 0, 0);">2、History模式</font></strong></h3><pre class="line-numbers language-jsx" data-language="jsx"><code class="language-jsx">import {
+  BrowserRouter,
+  ...
+} from "react-router-dom";<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><font style="color:rgb(0, 0, 0);">将Hash模式中的代码修改为BrowserRouter，运行本地项目，路由切换正常，该路由是History模式</font></p>
+<p><img src="/images/et/4_7.png"><font style="color:rgb(0, 0, 0);">同样执行<code>yarn build</code><font style="color:rgb(0, 0, 0);">生成<code>build</code><font style="color:rgb(0, 0, 0);">目录，将该目录下的文件迁移到上一步服务器的目录/data/web下，然后访问外网IP，发现渲染效果和上图一样，但是当我们点击About页面，然后刷新浏览器发现，出现了404。</font></font></font></p><font style="color:rgb(0, 0, 0);"><font style="color:rgb(0, 0, 0);">
+<p><img src="/images/et/4_8.png"><font style="color:rgb(0, 0, 0);">先说解决办法，然后解释下原因，修改Nginx配置<code>web.conf</code></font></p><font style="color:rgb(0, 0, 0);">
+<p><font style="color:rgb(0, 0, 0);">增加一行try_files配置，当请求的地址找不到时，重新指向index.html文件</font></p>
+<pre class="line-numbers language-nginx" data-language="nginx"><code class="language-nginx">server { 
+  listen 80; 
+  server_name localhost; 
+  root /data/www/; 
+
+  location / { 
+    try_files $uri $uri/ /index.html; 
+    index index.html; 
+  } 
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><font style="color:rgb(0, 0, 0);">重启nginx</font><font style="color:rgb(0, 0, 0);"> <code>nginx -t</code><font style="color:rgb(0, 0, 0);">、<code>nginx -s reload</code><font style="color:rgb(0, 0, 0);"> </font><font style="color:rgb(0, 0, 0);">再次刷新页面，发现页面访问正常了，切换也没有问题。</font></font></font></p><font style="color:rgb(0, 0, 0);"><font style="color:rgb(0, 0, 0);">
+<p><img src="/images/et/4_9.png"></p>
+<h3 id="3、为什么hash模式不会出现404，而history模式会出现404？"><a href="#3、为什么hash模式不会出现404，而history模式会出现404？" class="headerlink" title="3、为什么hash模式不会出现404，而history模式会出现404？"></a><font style="color:rgb(0, 0, 0);">3、为什么hash模式不会出现404，而history模式会出现404？</font></h3><p><font style="color:rgb(0, 0, 0);">了解下这两种模式的区别就知道答案了</font></p>
+<h4 id="1）Hash模式"><a href="#1）Hash模式" class="headerlink" title="1）Hash模式"></a><font style="color:rgb(0, 0, 0);">1）Hash模式</font></h4><p><font style="color:rgb(0, 0, 0);">在hash路由模式下，URL中的Hash值（#后面的部分）用来表示应用的状态或路由信息。当用户切换路由时，只有Hash部分发生变化，并没有向服务器发出请求，就做到了浏览器对于页面路由的管理。</font></p>
+<p><font style="color:rgb(1, 1, 1);">Hash模式下，URL和路由路径由#号分隔：<code>http://example.com/#/about?query=abc</code></font></p><font style="color:rgb(1, 1, 1);">
+<p><font style="color:rgb(1, 1, 1);">当<code>#</code><font style="color:rgb(1, 1, 1);">后面的路径发生变化时，会触发浏览器的hashchange事件，通过hashchange事件监听到路由路径的变化，从而导航到不同的路由页面。</font></font></p><font style="color:rgb(1, 1, 1);">
+<p><font style="color:rgb(1, 1, 1);">Hash模式<code>#</code><font style="color:rgb(1, 1, 1);">后面的路径并不会作为URL出现在网络请求中。例如对于输入的</font><font style="color:rgb(30, 107, 184);">example.com/#/about</font><font style="color:rgb(30, 107, 184);">[1]</font><font style="color:rgb(1, 1, 1);"> </font><font style="color:rgb(1, 1, 1);">，实际上请求的URL是</font><font style="color:rgb(30, 107, 184);">example.com/</font><font style="color:rgb(30, 107, 184);">[2]</font><font style="color:rgb(1, 1, 1);"> </font><font style="color:rgb(1, 1, 1);">，所以不管输入的Hash路由路径是什么，实际网络请求的都是主域名或<code>IP:Port</code></font></font></p><font style="color:rgb(1, 1, 1);"><font style="color:rgb(1, 1, 1);">
+<h4 id="2）History模式"><a href="#2）History模式" class="headerlink" title="2）History模式"></a><font style="color:rgb(0, 0, 0);">2）History模式</font></h4><p><font style="color:rgb(0, 0, 0);">History路由模式下，调用浏览器HTML5中<code>history</code><font style="color:rgb(0, 0, 0);">API来管理导航。URL和路径是连接在一起的，路由的路径包含在请求的URL里面，路由路径作为URL的一部分一起发送。</font></font></p><font style="color:rgb(0, 0, 0);">
+<p><font style="color:rgb(1, 1, 1);">History模式下，URL路由格式为：<code>http://example.com/about&amp;query=abc</code></font></p><font style="color:rgb(1, 1, 1);">
+<p><font style="color:rgb(1, 1, 1);">当我们向服务器发出请求时，服务器会请求对应的路径的资源</font></p>
+<p><font style="color:rgb(0, 0, 0);">综上，当我们打开入口文件index.html的路径时，切换url此时是本地路由，访问正常，但是当我们处于非入口页面时，刷新浏览器，此时发出请求，由于服务器就找不到资源路径了，变成了404。</font></p>
+<p><font style="color:rgb(0, 0, 0);">而对于Hash模式来说，总是请求的根路径，所以不会出现这种情况。</font></p>
+<h2 id="四、配置反向代理、负载均衡"><a href="#四、配置反向代理、负载均衡" class="headerlink" title="四、配置反向代理、负载均衡"></a><strong><font style="color:rgb(0, 0, 0);">四、配置反向代理、负载均衡</font></strong></h2><p><img src="/images/et/4_10.png"></p>
+<h3 id="1、反向代理"><a href="#1、反向代理" class="headerlink" title="1、反向代理"></a><strong><font style="color:rgb(0, 0, 0);">1、反向代理</font></strong></h3><p><font style="color:rgb(0, 0, 0);">反向代理的用途很多，这里我们看一个常用的，代理请求的接口。我们在发布时前端的域名和后端api服务的域名经常不一致，此时就可以使用Nginx配置反向代理来解决这个问题。</font></p>
+<pre class="line-numbers language-nginx" data-language="nginx"><code class="language-nginx">server {
+  location /api {
+    proxy_pass http://backend1.example.com;
+    proxy_set_header Host $host; 
+    proxy_set_header X-Real-IP $remote_addr; 
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+  }
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><font style="color:rgb(0, 0, 0);">代理的时候要注意添加必要的参数，帮助后端获取一些客户端的请求数据</font></p>
+<ul>
+<li><code>proxy_set_header Host $host; </code><font style="color:rgb(1, 1, 1);">：客户端请求的主机名（Host），不加的话，后端无法获取主机名信息</font></li>
+<li><code>proxy_set_header X-Real-IP $remote_addr;</code><font style="color:rgb(1, 1, 1);">：用户的真实IP(X-Real-IP)，如果不设置，后端只能拿到代理服务器的IP</font></li>
+<li><code>proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;</code><font style="color:rgb(1, 1, 1);">代理链路，如果用户中间经过了多个代理服务器，如果不加这个参数，那么后端服务将无法获取用户的真实来源</font></li>
+</ul>
+<h3 id="2、负载均衡"><a href="#2、负载均衡" class="headerlink" title="2、负载均衡"></a><strong><font style="color:rgb(0, 0, 0);">2、负载均衡</font></strong></h3><p><font style="color:rgb(0, 0, 0);">Nginx可以作为负载均衡服务器使用，通过配置upstream来分发流量，同时可以配置一些参数：</font></p>
+<ul>
+<li><font style="color:rgb(1, 1, 1);">weight：分发权重</font></li>
+<li><font style="color:rgb(1, 1, 1);">ip_hash：配置始终将ip的请求始终转发到同一台后端服务器。</font></li>
+<li><font style="color:rgb(1, 1, 1);">max_fails: 将某个后台服务标记为不可用之前，允许请求失败的次数</font></li>
+<li><font style="color:rgb(1, 1, 1);">backup：标记当前服务为备用服务</font></li>
+<li><font style="color:rgb(1, 1, 1);">down：暂时不可用</font></li>
+</ul>
+<pre class="line-numbers language-nginx" data-language="nginx"><code class="language-nginx">upstream api {
+  ip_hash;
+  server backend1.example.com;
+  server backend2.example.com;
+  # server backend1.example.com weight=5;
+}
+server {
+  location /api {
+    proxy_pass http://api;
+    proxy_set_header Host $host; 
+    proxy_set_header X-Real-IP $remote_addr; 
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+  }
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="五、配置nginx日志"><a href="#五、配置nginx日志" class="headerlink" title="五、配置nginx日志"></a><strong><font style="color:rgb(0, 0, 0);">五、配置nginx日志</font></strong></h2><p><font style="color:rgb(0, 0, 0);">Nginx日志也是很重要的一个内容，在我们请求资源出现问题时，要排查请求的资源是否到达Nginx，而且请求日志可以记录很多有用的信息。</font></p>
+<pre class="line-numbers language-nginx" data-language="nginx"><code class="language-nginx">log_format  gzip  '$remote_addr - $remote_user [$time_local]  '
+: '"$request" $status $bytes_sent '
+: '"$http_referer" "$http_user_agent" "$gzip_ratio"';
+
+access_log  /var/logs/nginx-access.log  gzip  buffer=32k;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><font style="color:rgb(0, 0, 0);">nginx日志主要涉及<code>access_log</code><font style="color:rgb(0, 0, 0);">，<code>log_format</code></font></font></p><font style="color:rgb(0, 0, 0);"><font style="color:rgb(0, 0, 0);">
+<ul>
+<li><code>log_format</code><font style="color:rgb(1, 1, 1);">: 日志格式，通过nginx内置的变量来读取和排列，通常默认即可</font></li>
+<li><code>access_log</code><font style="color:rgb(1, 1, 1);">: 日志输出的地址、是否压缩、buffer是否当日志大于32k后吸入磁盘</font></li>
+</ul>
+<h2 id="六、其他常用配置"><a href="#六、其他常用配置" class="headerlink" title="六、其他常用配置"></a><strong><font style="color:rgb(0, 0, 0);">六、其他常用配置</font></strong></h2><h3 id="1、配置Gzip压缩"><a href="#1、配置Gzip压缩" class="headerlink" title="1、配置Gzip压缩"></a><strong><font style="color:rgb(0, 0, 0);">1、配置Gzip压缩</font></strong></h3><p><strong><font style="color:rgb(0, 0, 0);">作为前端性能优化的一种方式，Gzip是简单且有效的，尽管目前前端对于静态资源会进行压缩，但Gzip依然可以在网络传输过程中对文件进行压缩</font></strong></p>
+<p><font style="color:rgb(0, 0, 0);">下面这些字段可以放在<code>http、server、location</code><font style="color:rgb(0, 0, 0);">指令模块</font></font></p><font style="color:rgb(0, 0, 0);">
+<pre class="line-numbers language-nginx" data-language="nginx"><code class="language-nginx">http {
+  # 开启关闭
+  gzip on;
+  # 压缩的文件类型
+  gzip_types text/plain text/css application/javascript;
+  # 过小的文件没必要压缩
+  gzip_min_length 1000; # 单位Byte
+  gzip_comp_level 5; # 压缩比，默认1，范围时1-9，值越大压缩比最大，但处理最慢，所以设置5左右比较合理。
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="2、配置请求头"><a href="#2、配置请求头" class="headerlink" title="2、配置请求头"></a><strong><font style="color:rgb(0, 0, 0);">2、配置请求头</font></strong></h3><p><strong><font style="color:rgb(0, 0, 0);">允许客户端请求在http请求中添加以下划线格式命名的参数</font></strong></p>
+<p><font style="color:rgb(0, 0, 0);">该字段可以放在<code>http</code><font style="color:rgb(0, 0, 0);">指令模块</font></font></p><font style="color:rgb(0, 0, 0);">
+<pre class="line-numbers language-nginx" data-language="nginx"><code class="language-nginx">http {
+  underscores_in_headers on;
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-nginx" data-language="nginx"><code class="language-nginx">http {
+  client_max_body_size 1m;
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-nginx" data-language="nginx"><code class="language-nginx">### 3、浏览器缓存配置
+
+### 缓存也是前端优化的一个重点，合理的缓存可以提高用户访问速度
+
+### 该字段可以放在`http、server、location`指令模块
+
+### 配置浏览器缓存的有三个地方
+
+#### 1）后端服务，配置请求头
+
+### 后端根据语言不同，配置关键字段即可
+
+#### 2）代理服务器（Nginx）配置缓存请求头
+
+location /static {
+  # /static匹配到的资源有效期设置为1d;
+  expires 1d;  
+  # /设置资源有效期为一周;
+  # expires max-age=604800; 
+
+  # 设置浏览器可以被缓存，设置7天后资源过期
+  add_header Cache-Control "public, max-age=604800";
+  # 阻止浏览器缓存动态内容
+  # add_header Cache-Control "no-cache, no-store, must-revalidate";
+  # 禁用浏览器缓存
+  # add_header Cache-Control "no-store, private, max-age=0";
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><font style="color:rgb(0, 0, 0);">我们发现响应头的过期时间更新了</font></p>
+<p><img src="/images/et/4_11.png"></p>
+<h4 id="3）在前端资源中通过meta声明缓存信息"><a href="#3）在前端资源中通过meta声明缓存信息" class="headerlink" title="3）在前端资源中通过meta声明缓存信息"></a><strong><font style="color:rgb(0, 0, 0);">3）在前端资源中通过meta声明缓存信息</font></strong></h4><pre class="line-numbers language-plain" data-language="plain"><code class="language-plain">&lt;meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"&gt;
+&lt;meta http-equiv="Expires" content="0"&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<h3 id="4、跨域处理"><a href="#4、跨域处理" class="headerlink" title="4、跨域处理"></a><strong><font style="color:rgb(0, 0, 0);">4、跨域处理</font></strong></h3><p><font style="color:rgb(0, 0, 0);">通过反向代理，已经处理了请求域名和端口不一致的跨域问题，但有局限性。Nginx有专门方法配置请求资源的跨域</font></p>
+<p><font style="color:rgb(0, 0, 0);">该字段可以放在<code>server、location</code><font style="color:rgb(0, 0, 0);">指令模块，通过配置头部字段，做跨域处理</font></font></p><font style="color:rgb(0, 0, 0);">
+<pre class="line-numbers language-nginx" data-language="nginx"><code class="language-nginx">server {
+
+  location / {
+    # 允许所有来源的跨域请求
+    add_header Access-Control-Allow-Origin *;
+
+    # 允许特定的HTTP方法（GET、POST等）
+    add_header Access-Control-Allow-Methods "GET, POST, OPTIONS, PUT, DELETE";
+
+    # 允许特定的HTTP请求头字段
+    add_header Access-Control-Allow-Headers "Origin, X-Requested-With, Content-Type, Accept";
+
+    # 响应预检请求的最大时间
+    add_header Access-Control-Max-Age 3600;
+
+    # 允许携带身份凭证（如Cookie）
+    add_header Access-Control-Allow-Credentials true;
+
+    # 处理 OPTIONS 预检请求
+    if ($request_method = 'OPTIONS') {
+      add_header Access-Control-Allow-Methods "GET, POST, OPTIONS, PUT, DELETE";
+      add_header Access-Control-Allow-Headers "Origin, X-Requested-With, Content-Type, Accept";
+      add_header Access-Control-Max-Age 3600;
+      add_header Access-Control-Allow-Credentials true;
+      add_header Content-Length 0;
+      add_header Content-Type text/plain;
+      return 204;
+    }
+  }
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+</font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font>
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">吴俊杰</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="http://example.com/2024/12/12/you-xiu-de-tui-wen/4-bi-bei-nginx-zhi-shi/">http://example.com/2024/12/12/you-xiu-de-tui-wen/4-bi-bei-nginx-zhi-shi/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">吴俊杰</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/Nginx/">
+                                    <span class="chip bg-color">Nginx</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2024/12/12/you-xiu-de-tui-wen/5-tong-yi-xiang-mu-gui-fan/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="五、统一项目规范">
+                        
+                        <span class="card-title">五、统一项目规范</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            工程规范真的太重要了，统一项目的工程规范，使得团队开发能够遵循标准，依据标准出来的产物不一定是好东西，但一定很舒服......
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2024-12-12
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E4%BC%98%E7%A7%80%E7%9A%84%E6%8E%A8%E6%96%87/" class="post-category">
+                                    优秀的推文
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E9%A1%B9%E7%9B%AE%E8%A7%84%E8%8C%83/">
+                        <span class="chip bg-color">项目规范</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%B7%A5%E7%A8%8B%E8%A7%84%E8%8C%83/">
+                        <span class="chip bg-color">工程规范</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2024/12/12/you-xiu-de-tui-wen/3-nginx-chang-yong-de-ji-chu-pei-zhi/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="三、Nginx常用的基础配置">
+                        
+                        <span class="card-title">三、Nginx常用的基础配置</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            我一直认为nginx是介于前端后后端的中间产物，不只是后端需要会配置，前端也需要学会怎么使用，不要自己骗自己推卸责任，加油......
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2024-12-12
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E4%BC%98%E7%A7%80%E7%9A%84%E6%8E%A8%E6%96%87/" class="post-category">
+                                    优秀的推文
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Nginx/">
+                        <span class="chip bg-color">Nginx</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2024</span>
+            
+            <a href="/about" target="_blank">吴俊杰</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">ColinWu</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+                <span id="translate">|&nbsp;繁/简：</span><a id="translateLink" href="javascript:translatePage();">繁</a>
+            
+            <br>
+            
+                &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                        class="white-color">243.3k</span>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/colinWu916" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:colinwu916@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=2232459332" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 2232459332" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+        <script type="text/javascript" src="/js/tw_cn.js"></script>
+        <script type="text/javascript">
+          var defaultEncoding = 2; //网站编写字体是否繁体，1-繁体，2-简体
+          var translateDelay = 0; //延迟时间,若不在前, 要设定延迟翻译时间, 如100表示100ms,默认为0
+          var cookieDomain = "http://example.com"; //Cookie地址, 一定要设定, 通常为你的网址
+          var msgToTraditionalChinese = "繁"; //此处可以更改为你想要显示的文字
+          var msgToSimplifiedChinese = "简"; //同上，但两处均不建议更改
+          var translateButtonId = "translateLink"; //默认互换id
+          translateInitilization();
+        </script>
+    
+    
+    
+
+    <!-- 雪花特效 -->
+     
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/snow.js"><\/script>');
+            }
+        </script>
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>
